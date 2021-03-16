@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/dialog_title_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_bold"
+        android:padding="@dimen/_4sdp"
+        android:text="@string/text_select_country"
+        android:textColor="@color/defaultTextColor"
+        android:textSize="@dimen/_12ssp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1sdp"
+        android:background="@color/colorRectangleBorderLight" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/dialog_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/_4sdp">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+</LinearLayout>

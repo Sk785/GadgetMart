@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@color/home_item_back_color"
+
+    android:layout_height="wrap_content">
+<!--    <View-->
+<!--        android:id="@+id/space1"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="@dimen/_10sdp"-->
+<!--        android:background="@color/home_item_back_color"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"/>-->
+<!--    <androidx.viewpager.widget.ViewPager-->
+<!--        android:id="@+id/dashboard_view_pager"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="@dimen/_160sdp"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/space1"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent">-->
+<!--    </androidx.viewpager.widget.ViewPager>-->
+
+    <com.asksira.loopingviewpager.LoopingViewPager
+        android:id="@+id/dashboard_view_pager"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_160sdp"
+        app:isInfinite="true"
+        app:autoScroll="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:scrollInterval="3000"
+        app:wrap_content="true"/>
+<!--    <com.rd.PageIndicatorView-->
+<!--        android:id="@+id/dots_indicator"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintBottom_toBottomOf="@id/dashboard_view_pager"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        android:layout_marginBottom="8dp"-->
+<!--        app:piv_animationType="slide"-->
+<!--        app:piv_animationDuration="200"-->
+<!--        android:visibility="gone"-->
+<!--        app:dotColor="@android:color/white"-->
+<!--        app:selectedDotColor="@color/colorPrimary"-->
+<!--        app:piv_interactiveAnimation="true"/>-->
+
+
+    <LinearLayout
+        android:id="@+id/dots_indicator"
+        android:orientation="horizontal"
+        android:gravity="center_vertical|center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+
+        app:layout_constraintBottom_toBottomOf="@id/dashboard_view_pager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="@dimen/_10sdp"
+       />
+
+<!--    <com.rbrooks.indefinitepagerindicator.IndefinitePagerIndicator-->
+<!--        android:id="@+id/dots_indicator"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        app:dotRadius="3.5dp"-->
+<!--        app:selectedDotRadius="5dp"-->
+<!--        app:dotColor="@android:color/white"-->
+<!--        app:layout_constraintBottom_toBottomOf="@id/dashboard_view_pager"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        android:layout_marginBottom="@dimen/_10sdp"-->
+<!--        app:selectedDotColor="@color/colorPrimary"/>-->
+
+
+<!--    <View-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="@dimen/_10sdp"-->
+<!--        android:background="@color/colorAppBackground"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/dashboard_view_pager"/>-->
+</androidx.constraintlayout.widget.ConstraintLayout>

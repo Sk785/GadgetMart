@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1062081644892",
+    "firebase_url": "https://gadgetmart-89472.firebaseio.com",
+    "project_id": "gadgetmart-89472",
+    "storage_bucket": "gadgetmart-89472.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1062081644892:android:e70a3bd7ddcea700889999",
+        "android_client_info": {
+          "package_name": "com.gadgetmart"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1062081644892-35u4uke9g7r5vhmtqhb5i1jdrf1d3qm3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gadgetmart",
+            "certificate_hash": "22ad693521df34415517b3b16f5101d0eda869e1"
+          }
+        },
+        {
+          "client_id": "1062081644892-6abmqd0p25rcn41u9vs9d4kmr3ag65ps.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAG24v7F8ksNsWaThtG00qMgKf73IbyQw8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1062081644892-6abmqd0p25rcn41u9vs9d4kmr3ag65ps.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

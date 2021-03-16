@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context=".ui.product_details.ProductDescriptionActivity">
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/white">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?actionBarSize"
+                    android:layout_marginLeft="-10dp">
+
+                    <include
+                        android:id="@+id/toolbarID"
+                        layout="@layout/layout_toolbar_back_activity" />
+                </androidx.appcompat.widget.Toolbar>
+            </com.google.android.material.appbar.AppBarLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                <androidx.core.widget.NestedScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fillViewport="true"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/product_image_view"
+                            android:layout_width="@dimen/_70sdp"
+                            android:layout_height="@dimen/_70sdp"
+                            android:layout_marginStart="@dimen/_12sdp"
+                            android:padding="@dimen/_8sdp"
+                            android:src="@drawable/ic_logo_toolbar"
+                            app:layout_constraintBottom_toBottomOf="@id/detail_layout"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/detail_layout" />
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/detail_layout"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_12sdp"
+                            android:layout_marginTop="@dimen/_12sdp"
+                            android:layout_marginEnd="@dimen/_12sdp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/product_image_view"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <TextView
+                                android:id="@+id/product_name_text_view"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/montserrat_medium"
+                                android:text="@string/product_name"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_12sdp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <RatingBar
+                                android:id="@+id/rate_product"
+                                style="@style/Widget.AppCompat.RatingBar.Small"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_10sdp"
+                                android:numStars="5"
+                                android:visibility="gone"
+                                android:progressTint="@color/rating_yellow"
+                                android:rating="5"
+                                app:layout_constraintStart_toStartOf="@id/product_name_text_view"
+                                app:layout_constraintTop_toBottomOf="@id/product_name_text_view" />
+
+                            <TextView
+                                android:id="@+id/product_reviews_text_view"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_8sdp"
+                                android:fontFamily="@font/montserrat_regular"
+                                android:text="234 reviews"
+                                android:visibility="gone"
+                                android:textColor="@color/trolley_grey"
+                                android:textSize="@dimen/_10ssp"
+                                app:layout_constraintBottom_toBottomOf="@id/rate_product"
+                                app:layout_constraintStart_toEndOf="@id/rate_product"
+                                app:layout_constraintTop_toTopOf="@id/rate_product" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:orientation="vertical"
+                                app:layout_constraintStart_toStartOf="@id/product_name_text_view"
+                                app:layout_constraintTop_toBottomOf="@id/rate_product">
+
+                                <LinearLayout
+                                    android:id="@+id/price_main_view"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:id="@+id/product_discounted_price_text_view"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textStyle="bold"
+
+                                        android:fontFamily="@font/montserrat_medium"
+                                        android:text="$23"
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/_15ssp" />
+
+                                    <TextView
+                                        android:id="@+id/product_net_price_text_view"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="@dimen/_12sdp"
+                                        android:fontFamily="@font/montserrat_medium"
+                                        android:text="$52"
+                                        android:textColor="@color/trolley_grey"
+                                        android:textSize="@dimen/_13ssp"
+                                        app:layout_constraintBaseline_toBaselineOf="@id/product_discounted_price_text_view"
+                                        app:layout_constraintStart_toEndOf="@id/product_discounted_price_text_view"
+                                        app:layout_constraintTop_toBottomOf="@id/rate_product" />
+                                </LinearLayout>
+
+                                <TextView
+                                    android:id="@+id/product_tax"
+                                    style="@style/ProductNameTextAppearance"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_4sdp"
+                                    android:fontFamily="@font/montserrat_regular"
+                                    android:lines="1"
+                                    android:text=""
+                                    android:visibility="gone"
+                                    android:textColor="@color/colorPrimary"
+                                    android:textSize="@dimen/_10ssp"
+                                    app:layout_constraintStart_toStartOf="@id/product_discounted_price_text_view"
+                                    app:layout_constraintTop_toBottomOf="@id/product_discounted_price_text_view" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:textColor="@color/colorBlackPure"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/INCLUSIVE_OF_ALL_TAXES"/>
+                            </LinearLayout>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <View
+                            android:id="@+id/space1"
+                            android:layout_width="0dp"
+                            android:layout_height="0.8dp"
+                            android:layout_marginTop="@dimen/_12sdp"
+                            android:alpha="0.7"
+                            android:background="@color/silver_approx"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/detail_layout" />
+
+                        <com.google.android.material.tabs.TabLayout
+                            android:id="@+id/tablayout"
+                            style="@style/CustomTextAppearanceTab"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/space1"
+                            app:tabIndicatorColor="@color/red_light"
+                            app:tabMode="fixed"
+                            app:tabSelectedTextColor="@color/red_light"
+                            app:tabTextColor="@color/black" />
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="0.8dp"
+                            android:alpha="0.7"
+                            android:background="@color/silver_approx"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tablayout" />
+
+                        <androidx.viewpager.widget.ViewPager
+                            android:id="@+id/viewpager"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginTop="@dimen/_1sdp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tablayout" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.core.widget.NestedScrollView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

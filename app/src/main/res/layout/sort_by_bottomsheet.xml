@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SORT BY :"
+        android:textColor="@color/red_light"
+        android:textSize="@dimen/_11ssp"
+        android:fontFamily="@font/montserrat_semibold"
+        android:layout_margin="@dimen/_12sdp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.8dp"
+        android:background="@color/minor_grey"/>
+
+    <LinearLayout
+        android:id="@+id/sortby_populars"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Populars"
+            android:layout_gravity="center"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_10ssp"
+            android:fontFamily="@font/montserrat_regular"
+            android:layout_margin="@dimen/_12sdp"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:id="@+id/populars_image_view"
+            android:layout_width="@dimen/_15sdp"
+            android:layout_height="@dimen/_15sdp"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/_12sdp"
+            android:background="@drawable/round_grey_bg"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.8dp"
+        android:background="@color/minor_grey"/>
+
+    <LinearLayout
+        android:id="@+id/sortby_arrival"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Arrival"
+            android:layout_gravity="center"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_10ssp"
+            android:fontFamily="@font/montserrat_regular"
+            android:layout_margin="@dimen/_12sdp"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:id="@+id/new_arrival_image_view"
+            android:layout_width="@dimen/_15sdp"
+            android:layout_height="@dimen/_15sdp"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/_12sdp"
+            android:background="@drawable/round_grey_bg"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.8dp"
+        android:background="@color/minor_grey"/>
+
+    <LinearLayout
+        android:id="@+id/sortby_low_to_high"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Price : Low to High"
+            android:layout_gravity="center"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_10ssp"
+            android:fontFamily="@font/montserrat_regular"
+            android:layout_margin="@dimen/_12sdp"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:id="@+id/low_price_image_view"
+            android:layout_width="@dimen/_15sdp"
+            android:layout_height="@dimen/_15sdp"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/_12sdp"
+            android:background="@drawable/round_grey_bg"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.8dp"
+        android:background="@color/minor_grey"/>
+
+    <LinearLayout
+        android:id="@+id/sortby_high_to_low"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Price : High to Low"
+            android:layout_gravity="center"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_10ssp"
+            android:fontFamily="@font/montserrat_regular"
+            android:layout_margin="@dimen/_12sdp"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:id="@+id/high_price_image_view"
+            android:layout_width="@dimen/_15sdp"
+            android:layout_height="@dimen/_15sdp"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/_12sdp"
+            android:background="@drawable/round_grey_bg"/>
+    </LinearLayout>
+
+</LinearLayout>
+</layout>

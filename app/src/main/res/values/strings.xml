@@ -1,0 +1,232 @@
+<resources>
+    <string name="app_name">Gadgetmart</string>
+
+    <!--    Nav Drawer      -->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <!--    Permissions     -->
+    <string name="overlay_perm_msg">We need Overlay permission too, please allow.</string>
+    <string name="settings">Settings</string>
+    <string name="permissions_required">Permissions Required</string>
+    <string name="permissions_required_msg">Some permissions are required to use this app, these permissions were rejected by you before. You have to allow these permissions.</string>
+    <string name="alright">Alright</string>
+
+    <!--    Image Selection     -->
+    <string name="profile_set_up">Profile set up</string>
+    <string name="title_select_one">Select One</string>
+    <string name="action_camera">Camera</string>
+    <string name="action_gallery">Gallery</string>
+    <string name="msg_welcome_to_app">Welcome to Gadgetmart</string>
+    <string name="msg_welcome_sub_text">Explore a tons of gadget products and find a appropriate one</string>
+    <string name="text_get_started">Login/Signup</string>
+    <string name="text_hi_welcome">Hi, Welcome</string>
+    <string name="text_login_to_your_account">Login to your account</string>
+    <string name="label_enter_your_phone">Enter your phone</string>
+    <string name="label_enter_your_password">Enter your password</string>
+    <string name="label_enter_your_email">Enter your email address</string>
+    <string name="label_enter_your_new_password">Create your password</string>
+    <string name="hint_phone_number">Phone number</string>
+    <string name="hint_phone_number_required">Phone number*</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_email">Email Address</string>
+    <string name="hint_country_code">+91</string>
+    <string name="login">Login</string>
+    <string name="continue_text">Continue</string>
+    <string name="text_forgot_password">Forgot Password?</string>
+    <string name="text_new_account">New Account?</string>
+    <string name="register">Register</string>
+    <string name="register_underline"><u>Register</u></string>
+    <string name="back_to_login">Back to login</string>
+    <string name="text_register_to_your_account">Register to your account</string>
+    <string name="text_hi_guest">Hi, Guest</string>
+    <string name="text_continue">Continue</string>
+    <string name="resend_otp">Resend OTP in : </string>
+    <string name="resend_otp_now">Resend OTP</string>
+    <string name="otp_verification">OTP Verification</string>
+    <string name="label_enter_4_digit_otp">Enter the 6 digit OTP here</string>
+    <string name="text_send_otp">Verify OTP</string>
+    <string name="text_setup_accout_title">Setup Account Detail</string>
+    <string name="fill_email_password">Fill your email &amp; password.</string>
+    <string name="account_setup_note"><font color="#000000" face="montserrat_semibold.ttf">*Note:</font> Password length should be greater than 8 and lave atleast 4 character</string>
+    <string name="setup_profile_title">Setup Your Profile</string>
+    <string name="fill_your_personal_detail">Fill your personal detail.</string>
+    <string name="upload_photo_text">Upload Photo</string>
+    <string name="label_enter_your_name">Enter your Name</string>
+    <string name="label_enter_your_country">Country</string>
+    <string name="hint_name">Name</string>
+    <string name="hint_name_required">Name*</string>
+    <string name="hint_country">Choose Country</string>
+    <string name="hint_country_required">Choose Country*</string>
+    <string name="label_gender_optional">Gender (Optional)</string>
+    <string name="gender_male">Male</string>
+    <string name="gender_female">Female</string>
+    <string name="finish">finish</string>
+    <string name="profile_setup_tnc">By click on continue, agree  to the <u>Terms &amp; Conditions</u> and <u>Privacy Policy</u>.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="forgot_password_title">Forgot Password</string>
+    <string name="forgot_password_desc">Use your registered phone numbe to reset your password</string>
+    <string name="setup_new_password_title">Setup New Password</string>
+    <string name="setup_new_password_desc">Create new password to use “gadgets” in future.</string>
+    <string name="label_enter_new_password">Enter New Password</string>
+    <string name="edittext_new_password">New Password</string>
+    <string name="action_submit">Submit</string>
+
+    <!--    Error messages      -->
+    Nationality
+    <string name="error_msg_nationality">Please select Nationality</string>
+
+    <string name="error_msg_person_image">Please select image</string>
+
+
+    <string name="error_msg_email_id">Please enter valid email id</string>
+    <string name="error_msg_person_name">Please enter valid person name</string>
+    <string name="error_msg_phone_number">Phone number should be more than 10 digits</string>
+    <string name="error_msg_country_code">Country code is empty</string>
+    <string name="title_menu_dashboard">Explore</string>
+    <string name="title_menu_my_account">My Account</string>
+    <string name="title_menu_my_wish_list">My Wishlist</string>
+    <string name="title_menu_my_orders">My Orders</string>
+    <string name="title_menu_gadget_mart_care">Gadgetmart Care</string>
+    <string name="title_menu_gadget_mart_support_care">Support center</string>
+    <string name="title_menu_gadget_mart_term">Terms &amp; Conditions</string>
+    <string name="title_menu_gadget_mart_privecy">Privacy policy</string>
+    <string name="title_menu_gadget_mart_refund">Refund policy</string>
+
+
+
+    <string name="title_menu_log_out">Logout</string>
+    <string name="text_popular_gadgets">Popular Gadgets</string>
+    <string name="text_view_all">View All</string>
+    <string name="format_offer_up_to">Offers </string>
+    <string name="text_edit_profile">Edit Profile</string>
+    <string name="text_notification_settings">Notification Settings</string>
+    <string name="text_my_addresses">My Addresses</string>
+    <string name="text_my_reviews">My Reviews</string>
+    <string name="action_update">Update</string>
+    <string name="text_gender">Gender</string>
+    <string name="product_name">Beat Solo  WH-XB700 Bluetooth Wireless Ear Headphones</string>
+    <string name="detailed_text">Lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs. The passage is attributed to an unknown typesetter in the 15th century who is thought to…</string>
+    <string name="seller_label_text">Find a seller that delivers to you</string>
+    <string name="label_enter_name">Enter name</string>
+    <string name="edittext_name">Name</string>
+    <string name="label_address_line_one">Address line 1</string>
+    <string name="edittext_address">Address</string>
+    <string name="label_address_line_two">Address Line 2</string>
+    <string name="label_zipcode">Zip Code</string>
+    <string name="label_country_name">Country</string>
+    <string name="savencontinue">Save &amp; Continue</string>
+    <string name="label_price_details">Price Details</string>
+    <string name="label_price_net">Bag Total</string>
+    <string name="label_price_tax">Tax</string>
+    <string name="label_coupon_discount">Discount</string>
+    <string name="label_order_total">Order Total</string>
+    <string name="label_delivery_charges">Delivery Charges</string>
+    <string name="label_total_amount">Total Amount</string>
+    <string name="label_available_offers">Available Offers</string>
+    <string name="label_offer_detail">50% cashback voucher og up to \u20B95 for new Paypal user’s first every transaction TCA.</string>
+    <string name="label_add_payment_method">Add New Payment Method</string>
+    <string name="label_pay_now_button">Pay Now</string>
+    <string name="label_order_placed_success">Order Placed Successfully</string>
+    <string name="label_order_placed_success_msg">Your order placed successfully, your order id : %1$s</string>
+    <string name="label_continue_shoping_button">Continue Shopping</string>
+    <string name="otp_sent_to">We Have Sent an OTP to</string>
+    <string name="us_dollar">\u20B9</string>
+    <string name="label_city">City</string>
+    <string name="hint_city">City</string>
+    <string name="hint_city_required">City*</string>
+    <string name="label_state">State</string>
+    <string name="hint_state">State</string>
+    <string name="hint_state_required">State*</string>
+    <string name="hint_zip">Zip code</string>
+    <string name="title_menu_my_addresses">My Addresses</string>
+    <string name="add_label">Edit</string>
+    <string name="remove_label">Remove</string>
+    <string name="empty_wishlist_title">Your wishlist is empty</string>
+    <string name="error_internet_connection_availability">Internet connection not available</string>
+    <string name="empty_wishlist_descp">Save items that you like in your wishlist. \nYou can move them anytime to the bag</string>
+    <string name="action_continue_shopping">continue shopping</string>
+    <string name="empty_address_title">Your address list is empty</string>
+    <string name="empty_address_descp">You can add new address by just \ntaping on below button</string>
+    <string name="action_add_address">Add new address</string>
+    <string name="empty_order_title">No Orders Yet!</string>
+    <string name="empty_order_descp">There are no recent orders to show.</string>
+    <string name="action_start_shopping">Start Shopping</string>
+    <string name="error_msg_phone_number_empty">Phone number can\'t be empty</string>
+    <string name="error_msg_otp_number_empty">Otp can\'t be empty</string>
+
+    <string name="error_msg_select_gender">Please select your gender</string>
+    <string name="error_msg_empty">Fields should not be empty</string>
+    <string name="facebook_app_id">4103369266403936</string>
+    <string name="format_currency">₹%1$s</string>
+    <string name="format_saved_address_count">%1$s saved addresses</string>
+    <string name="text_wish_list">Wishlist</string>
+    <string name="format_color_product_detail">%1$s: %2$s</string>
+    <string name="text_read_more">Read more</string>
+    <string name="text_select_delivery_address">Select Delivery Address</string>
+    <string name="hint_enter_pin_code">Enter Pin Code</string>
+    <string name="text_add">Add</string>
+    <string name="text_rating_and_reviews">Rating and Reviews</string>
+    <string name="action_add_to_bag">Add to bag</string>
+    <string name="action_go_to_cart">Go to bag</string>
+    <string name="action_buy_now">Buy now</string>
+    <string name="text_product_details">Product Description</string>
+    <string name="text_share">Share</string>
+    <string name="text_remove">Remove</string>
+    <string name="text_use_pin_code">Use pin code to check delivery info</string>
+    <string name="text_use_my_current_location">Use my current location</string>
+    <string name="hint_pin_code_required">Pin code*</string>
+    <string name="hint_road_name_area_colony">Road name, Area, Colony</string>
+    <string name="hint_landmark_optional">Landmark (Optional)</string>
+    <string name="text_address_type">Address type</string>
+    <string name="text_home_address">Home Address</string>
+    <string name="text_work_address">Work Address</string>
+    <string name="text_select_country">Select country</string>
+    <string name="text_select_state">Select state</string>
+    <string name="text_select_city">Select city</string>
+    <string name="set_as_default">Set as default</string>
+    <string name="text_add_a_new_address">Add a new address</string>
+    <string name="text_yes">Yes</string>
+    <string name="text_no">No</string>
+    <string name="msg_remove_address">Do you want to delete this address?</string>
+    <string name="msg_remove_from_cart">Do you want to remove this product from cart?</string>
+    <string name="text_sort_by">Sort by</string>
+    <string name="text_filter">Filter</string>
+    <string name="INCLUSIVE_OF_ALL_TAXES">Inclusive of all taxes</string>
+    <string name="add_review">Add Review</string>
+    <string name="return_replacement">Return/Replace</string>
+    <string name="cancel_order">Cancel Order</string>
+
+
+<!--    <string name="razorpay_key_id">rzp_test_jwCi9xQ9IIgUEK</string>-->
+
+    <string name="razorpay_key_id">rzp_live_KsGbZgKeGNz5B7</string>
+
+
+
+
+    <string name="access_key"></string>
+    <string name="secreat_key"></string>
+
+
+    <array name="menuOptions">
+        <item>Dashboard</item>
+        <item>My Account</item>
+        <item>My Orders</item>
+        <item>My Wishlist</item>
+        <item>My Addresses</item>
+        <item>Gadgetmart Care</item>
+        <item>Logout</item>
+    </array>
+
+    <array name="initial_slider_values">
+        <item>20.0</item>
+        <item>70.0</item>
+    </array>
+
+    <string name="branch_live_key">key_live_neH8cYwj1jMAEsrVeZv1padoyxd6bKgp</string>
+    <string name="branch_test_key">key_test_mpJXp3EpZdKzsFuVaWB0gokkDwh0oq0Y</string>
+    <string name="shiping_address_differ_from_billing_address">Shiping Address Differ from Billing Address</string>
+</resources>

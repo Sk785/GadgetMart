@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <FrameLayout
+        android:id="@+id/popular_gadgets_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_12sdp"
+        android:background="#FFFAE5">
+
+        <TextView
+            style="@style/HeaderText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_popular_gadgets"
+            android:textSize="@dimen/_12ssp" />
+
+        <LinearLayout
+            android:id="@+id/view_all_gadgets_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end">
+
+            <TextView
+                style="@style/TextAppearance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:background="@drawable/background_round_left_stroke_red"
+                android:padding="@dimen/_6sdp"
+                android:text="@string/text_view_all"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_8ssp" />
+
+            <ImageView
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:background="@drawable/background_round_right_stroke_red"
+                android:padding="@dimen/_2sdp"
+                android:text="@string/text_view_all"
+                app:srcCompat="@drawable/ic_arrow_right" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_30sdp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_centerInParent="true"
+                android:id="@+id/popular_gadgets_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:padding="@dimen/_1sdp" />
+        </RelativeLayout>
+
+
+    </FrameLayout>
+
+</FrameLayout>

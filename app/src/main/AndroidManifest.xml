@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.gadgetmart">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    //You need the permision to set the alarm
+    <uses-permission android:name="your.package.alarm.permission.SET_ALARM" />
+
+    <uses-permission
+        android:name="android.permission.READ_SMS"
+        tools:node="remove" />
+
+    <uses-permission
+        android:name="android.permission.RECEIVE_SMS"
+        tools:node="remove" />
+    <uses-permission
+        android:name="android.permission.WRITE_SMS"
+        tools:node="remove" />
+
+    <uses-permission
+        android:name="android.permission.CALL_PHONE"
+        tools:node="remove" />
+
+
+
+    <application
+        android:name="com.gadgetmart.app.Global"
+
+        android:allowBackup="true"
+        tools:replace = "android:allowBackup"
+        android:icon="@mipmap/ic_launcher"
+        android:requestLegacyExternalStorage="true"
+        android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name="com.gadgetmart.ui.my_address.AddNewAddressActivity" />
+        <activity android:name="com.gadgetmart.ui.my_address.MyAddressesActivity" />
+        <activity android:name="com.gadgetmart.ui.wishlist.MyWishListActivity" />
+        <activity android:name="com.gadgetmart.ui.checkout.CheckoutActivity" />
+        <activity android:name="com.gadgetmart.ui.product_details.ProductDescriptionActivity" />
+        <activity android:name="com.gadgetmart.ui.product_details.ProductDetailsActivity" />
+        <activity android:name="com.gadgetmart.ui.products_of_sub_category.ProductsofSubCategory" />
+        <activity android:name="com.gadgetmart.ui.subcategory.AccessoriesActivity" />
+        <activity android:name=".ui.product_details.OfferListingActivity" />
+
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+
+        <activity android:name="com.gadgetmart.ui.auth.ForgotPasswordActivity" />
+        <activity android:name="com.gadgetmart.ui.auth.RegisterSetupActivity" />
+        <activity android:name="com.gadgetmart.ui.splash.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <!-- Handle local urls starting with "example://products" -->
+                <data android:scheme="http"
+                    android:host="nvg73.app.link" />
+                <data android:scheme="https"
+                    android:host="nvg73.app.link"/>
+
+                <data android:scheme="http"
+                    android:host="nvg73.test-app.link" />
+                <data android:scheme="https"
+                    android:host="nvg73.test-app.link"/>
+            </intent-filter>
+        </activity>
+
+        <service
+            android:name="com.amazonaws.mobileconnectors.s3.transferutility.TransferService"
+            android:enabled="true" />
+
+        <activity android:name="com.gadgetmart.ui.support.TermsAndCondtions"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity">
+
+        </activity>
+        <activity android:name="com.gadgetmart.ui.support.WebActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity">
+
+        </activity>
+        <activity android:name="com.gadgetmart.ui.support.SupportCenterActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity">
+        </activity>
+
+        <service android:name=".ui.auth.otp_verification.BradcastService"/>
+
+        <activity android:name="com.gadgetmart.ui.home.HomeActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity">
+
+        </activity>
+        <activity android:name="com.gadgetmart.ui.splash.WelcomeActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity">
+
+        </activity>
+        <activity android:name="com.gadgetmart.ui.order.MyOrder"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity">
+
+        </activity>
+        <activity android:name="com.gadgetmart.ui.order.OrderDetailsActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity">
+
+        </activity>
+        <activity android:name="com.gadgetmart.ui.order.CompleteCancelOrder"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity">
+        </activity>
+
+
+        <activity android:name="com.gadgetmart.ui.my_account.MyAccountActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity">
+
+        </activity>
+        <activity android:name=".ui.products.PopularActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity">
+
+        </activity>
+        <activity android:name=".ui.search.SearchActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity">
+
+        </activity>
+        <activity android:name="com.gadgetmart.ui.cart_bag.CartActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"/>
+
+        <activity android:name=".ui.order.RefundAndRetrunOrder"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
+            android:windowSoftInputMode="adjustNothing"/>
+
+        <activity android:name=".ui.order.CancelOrder"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
+            android:windowSoftInputMode="adjustNothing"/>
+
+
+        <activity android:name=".ui.my_review.MyReviewActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"/>
+        <activity android:name=".ui.my_review.EditReviewActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustNothing"
+            tools:ignore="LockedOrientationActivity"/>
+        <activity android:name=".ui.my_review.AddReviewActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            tools:ignore="LockedOrientationActivity"/>
+        <activity android:name=".ui.coupon.CouponActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"/>
+        <activity android:name="com.gadgetmart.ui.edit_profile.EditProfileActivity" />
+        <activity android:name=".ui.order.TrackProduct" />
+
+        <activity android:name=".ui.checkout.CheckoutActivity_Direct" />
+
+
+        <activity android:name=".ui.products.BannerProductCategory"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"/>
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id"
+           />
+        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat"/> <!-- optional (needed if default theme has no action bar) -->
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name" />
+        <activity android:name="com.gadgetmart.ui.checkout.OrderConfirmationActivity" />
+        <activity android:name=".ui.products.ProductsActivity" />
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="c20b5b645c9fe7e9c5dc17096ae3287c62fa0c1b" />
+        <service
+            android:name=".app.NotificationService"
+            android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE">
+            <intent-filter>
+                <action android:name="com.onesignal.NotificationExtender" />
+            </intent-filter>
+        </service>
+
+        <receiver
+            android:name=".ui.CustomNotifications.AlarmReceiver"
+            android:enabled="true"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".ui.CustomNotifications.NotificationService"
+            android:enabled="true" />
+
+
+        <meta-data
+            android:name="com.razorpay.ApiKey"
+            android:value="@string/razorpay_key_id"
+            />
+
+        <!-- Branch init -->
+        <meta-data android:name="io.branch.sdk.BranchKey" android:value="@string/branch_live_key" />
+        <meta-data android:name="io.branch.sdk.BranchKey.test" android:value="@string/branch_test_key" />
+        <meta-data android:name="io.branch.sdk.TestMode" android:value="false" /> <!-- Set to true to use Branch_Test_Key -->
+
+        <!-- Branch install referrer tracking (optional) -->
+        <receiver android:name="io.branch.referral.InstallListener" android:exported="true">
+            <intent-filter>
+                <action android:name="com.android.vending.INSTALL_REFERRER" />
+            </intent-filter>
+        </receiver>
+
+    </application>
+
+</manifest>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center">
+
+    <ImageView
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="@dimen/_100sdp"
+        android:src="@drawable/no_order"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/empty_address_title"
+        android:textSize="@dimen/_14ssp"
+        android:fontFamily="@font/montserrat_medium"
+        android:textColor="@color/black"
+        android:layout_marginTop="@dimen/_16sdp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/empty_address_descp"
+        android:textSize="@dimen/_11ssp"
+        android:fontFamily="@font/montserrat_regular"
+        android:textColor="@color/textGrey"
+        android:layout_marginTop="@dimen/_8sdp"/>
+
+    <Button
+        android:id="@+id/btnfinish"
+        style="@style/ButtonAppearance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:layout_marginBottom="@dimen/_20sdp"
+        android:paddingLeft="@dimen/_26sdp"
+        android:paddingRight="@dimen/_26sdp"
+        android:fontFamily="@font/montserrat_medium"
+        android:text="@string/action_add_address" />
+
+</LinearLayout>
+</layout>

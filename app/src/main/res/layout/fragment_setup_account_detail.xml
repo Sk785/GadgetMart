@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        tools:context=".fragment.register.SetupAccountDetailFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="@dimen/_20sdp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:text="@string/text_setup_accout_title"
+            android:fontFamily="@font/montserrat_semibold"
+            android:textColor="@color/colorDarkText"
+            android:textSize="@dimen/very_large_text_size" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:fontFamily="@font/montserrat_regular"
+            android:text="@string/fill_email_password"
+            android:textColor="@color/colorDarkText" />
+
+        <TextView
+            style="@style/EditTextLabelAppearance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_medium"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:text="@string/label_enter_your_email" />
+
+        <EditText
+            android:id="@+id/emailet"
+            android:layout_width="match_parent"
+            android:hint="@string/hint_email"
+            android:imeOptions="actionNext"
+            android:inputType="textEmailAddress"
+            android:singleLine="true"
+            android:textColorHint="@color/colorEditTextHint"
+            android:fontFamily="@font/montserrat_semibold"
+            android:padding="@dimen/_8sdp"
+            android:background="@drawable/shape_bottom_line"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            style="@style/EditTextLabelAppearance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_medium"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:text="@string/label_enter_your_new_password" />
+
+        <EditText
+            android:id="@+id/passwordet"
+            android:layout_width="match_parent"
+            android:hint="@string/hint_password"
+            android:imeOptions="actionDone"
+            android:inputType="textPassword"
+            android:singleLine="true"
+            android:textColorHint="@color/colorEditTextHint"
+            android:fontFamily="@font/montserrat_semibold"
+            android:padding="@dimen/_8sdp"
+            android:background="@drawable/shape_bottom_line"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            style="@style/EditTextLabelAppearance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorMediumGrey"
+            android:fontFamily="@font/montserrat_medium"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:text="@string/account_setup_note" />
+
+        <Button
+            android:id="@+id/continue_button"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/ButtonAppearance"
+            android:fontFamily="@font/montserrat_medium"
+
+            android:text="@string/continue_text"/>
+
+    </LinearLayout>
+    </ScrollView>
+    </LinearLayout>
+</layout>

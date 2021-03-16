@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="small_text_size">@dimen/_10ssp</dimen>
+    <dimen name="average_text_size">@dimen/_12ssp</dimen>
+    <dimen name="large_text_size">@dimen/_13ssp</dimen>
+    <dimen name="very_large_text_size">@dimen/_20ssp</dimen>
+    <dimen name="toolbar_title_text_size">@dimen/_20ssp</dimen>
+    <dimen name="toolbar_sub_title_text_size">@dimen/_14ssp</dimen>
+    <dimen name="label_text_size">@dimen/_12ssp</dimen>
+    <dimen name="edit_text_label_text_size">@dimen/_10ssp</dimen>
+
+    <dimen name="activity_padding">@dimen/_18sdp</dimen>
+</resources>

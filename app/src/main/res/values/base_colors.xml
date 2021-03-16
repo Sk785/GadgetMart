@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="red">#F34E4F</color>
+    <color name="red_light">#FF5D5E</color>
+
+    <color name="orange_medium_light">#EA9F5A</color>
+
+    <color name="light_grey">#FAFAFA</color>
+    <color name="very_light_grey">#EEEEEE</color>
+    <color name="minor_grey">#F1F1F1</color>
+    <color name="white">#FFFFFF</color>
+    <color name="silver_approx">#C1BDBD</color>
+    <color name="grey_approx">#646363</color>
+    <color name="camera_grey_bkg">#F6F5F6</color>
+    <color name="black">#000000</color>
+    <color name="eclipse_approx">#423d3d</color>
+    <color name="trolley_grey">#808080</color>
+    <color name="vivid_cyan">#00F6C4</color>
+    <color name="rating_yellow">#EA9F5A</color>
+    <color name="textGrey">#4A4A4A</color>
+    <color name="line_grey">#979797</color>
+    <color name="blue_color">#083FB8</color>
+    <color name="back_grey">#E9E9E9</color>
+    <color name="grey_1">#EAEAEA</color>
+
+
+</resources>

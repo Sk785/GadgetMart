@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/white">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="-10dp"
+                android:layout_height="?actionBarSize">
+
+                <include android:id="@+id/toolbarID"
+                    layout="@layout/layout_toolbar_back_activity" />
+            </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.AppBarLayout>
+        <WebView
+            android:id="@+id/webview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#000000"/>
+
+        <!--<org.sufficientlysecure.htmltextview.HtmlTextView-->
+        <!--    android:layout_width="match_parent"-->
+        <!--    android:layout_height="match_parent"-->
+        <!--    android:layout_marginStart="@dimen/_5sdp"-->
+        <!--    android:layout_marginEnd="@dimen/_5sdp"-->
+        <!--    android:id="@+id/webview"/>-->
+    </LinearLayout>
+</layout>

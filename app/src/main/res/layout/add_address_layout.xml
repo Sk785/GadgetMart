@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <TextView
+        style="@style/EditTextLabelAppearance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_medium"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:textColor="@color/trolley_grey"
+        android:text="@string/label_enter_name"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_20sdp">
+
+        <EditText
+            android:id="@+id/passworet"
+            android:layout_width="0dp"
+            android:hint="@string/edittext_name"
+            android:textColorHint="@color/colorEditTextHint"
+            android:fontFamily="@font/montserrat_medium"
+            android:imeOptions="actionDone"
+            android:singleLine="true"
+            android:inputType="text"
+            android:padding="@dimen/_8sdp"
+            android:background="@drawable/shape_bottom_line"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+
+    <TextView
+        style="@style/EditTextLabelAppearance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_medium"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:textColor="@color/trolley_grey"
+        android:text="@string/label_address_line_one"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_20sdp">
+
+        <EditText
+            android:id="@+id/address_one_edit_text"
+            android:layout_width="0dp"
+            android:hint="@string/edittext_address"
+            android:textColorHint="@color/colorEditTextHint"
+            android:fontFamily="@font/montserrat_medium"
+            android:imeOptions="actionDone"
+            android:singleLine="true"
+            android:inputType="text"
+            android:padding="@dimen/_8sdp"
+            android:background="@drawable/shape_bottom_line"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+
+    <TextView
+        style="@style/EditTextLabelAppearance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_medium"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:textColor="@color/trolley_grey"
+        android:text="@string/label_address_line_two"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_20sdp">
+
+        <EditText
+            android:id="@+id/address_two_edit_text"
+            android:layout_width="0dp"
+            android:hint="@string/edittext_name"
+            android:textColorHint="@color/colorEditTextHint"
+            android:fontFamily="@font/montserrat_medium"
+            android:imeOptions="actionDone"
+            android:singleLine="true"
+            android:inputType="text"
+            android:padding="@dimen/_8sdp"
+            android:background="@drawable/shape_bottom_line"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <TextView
+                style="@style/EditTextLabelAppearance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_medium"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginStart="@dimen/_20sdp"
+                android:textColor="@color/trolley_grey"
+                android:text="@string/label_address_line_two"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_20sdp">
+
+                <EditText
+                    android:id="@+id/address_three_edit_text"
+                    android:layout_width="0dp"
+                    android:hint="@string/edittext_name"
+                    android:textColorHint="@color/colorEditTextHint"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:imeOptions="actionDone"
+                    android:singleLine="true"
+                    android:inputType="text"
+                    android:padding="@dimen/_8sdp"
+                    android:background="@drawable/shape_bottom_line"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1">
+            <TextView
+                style="@style/EditTextLabelAppearance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_medium"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginStart="@dimen/_20sdp"
+                android:textColor="@color/trolley_grey"
+                android:text="@string/label_address_line_two"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_20sdp">
+
+                <EditText
+                    android:id="@+id/address_four_edit_text"
+                    android:layout_width="0dp"
+                    android:hint="@string/edittext_name"
+                    android:textColorHint="@color/colorEditTextHint"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:imeOptions="actionDone"
+                    android:singleLine="true"
+                    android:inputType="text"
+                    android:padding="@dimen/_8sdp"
+                    android:background="@drawable/shape_bottom_line"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <TextView
+                    style="@style/EditTextLabelAppearance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:textColor="@color/trolley_grey"
+                    android:text="@string/label_country_name"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_20sdp">
+
+                    <EditText
+                        android:id="@+id/country_edit_text"
+                        android:layout_width="0dp"
+                        android:hint="@string/edittext_name"
+                        android:textColorHint="@color/colorEditTextHint"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:imeOptions="actionDone"
+                        android:singleLine="true"
+                        android:inputType="text"
+                        android:padding="@dimen/_8sdp"
+                        android:background="@drawable/shape_bottom_line"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1">
+                <TextView
+                    style="@style/EditTextLabelAppearance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:textColor="@color/trolley_grey"
+                    android:text="@string/label_zipcode"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_20sdp">
+
+                    <EditText
+                        android:id="@+id/zip_code_edit_text"
+                        android:layout_width="0dp"
+                        android:hint="@string/edittext_name"
+                        android:textColorHint="@color/colorEditTextHint"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:imeOptions="actionDone"
+                        android:singleLine="true"
+                        android:inputType="text"
+                        android:padding="@dimen/_8sdp"
+                        android:background="@drawable/shape_bottom_line"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                </LinearLayout>
+            </LinearLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_radial"
+        android:layout_marginTop="@dimen/_45sdp"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:text="@string/savencontinue"
+        android:textColor="@color/white"
+        android:fontFamily="@font/montserrat_medium" />
+
+</LinearLayout>

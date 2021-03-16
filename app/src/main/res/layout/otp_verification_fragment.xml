@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data></data>
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_170sdp"
+                android:background="@color/colorYellow"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_100sdp"
+                    android:layout_margin="@dimen/_20sdp"
+                    android:src="@drawable/verify_otp_img" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="@dimen/_20sdp">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:text="@string/otp_verification"
+                    android:textColor="@color/colorDarkText"
+                    android:textSize="@dimen/_18ssp" />
+
+                <TextView
+                    android:id="@+id/otp_phone_number_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:text="@string/otp_sent_to"
+                    android:textSize="@dimen/_10ssp"
+                    android:textColor="@color/colorDarkText" />
+
+                <TextView
+                    style="@style/EditTextLabelAppearance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:textSize="@dimen/_10ssp"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:text="@string/label_enter_4_digit_otp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+
+                    <!--    <EditText
+                            android:layout_width="wrap_content"
+                            android:hint="0"
+                            android:textColorHint="@color/colorEditTextHint"
+                            android:fontFamily="@font/montserrat_semibold"
+                            android:imeOptions="actionNext"
+                            android:focusable="false"
+                            android:textSize="@dimen/_18sdp"
+                            android:layout_margin="@dimen/_8sdp"
+                            android:padding="@dimen/_12sdp"
+                            android:textColor="@color/black"
+                            android:minWidth="@dimen/_40sdp"
+                            android:background="@drawable/shape_bottom_line"
+                            android:layout_height="wrap_content"
+                            />
+                        <EditText
+                            android:layout_width="wrap_content"
+                            android:hint="0"
+                            android:textColorHint="@color/colorEditTextHint"
+                            android:fontFamily="@font/montserrat_semibold"
+                            android:imeOptions="actionNext"
+                            android:focusable="false"
+                            android:textSize="@dimen/_18sdp"
+                            android:layout_margin="@dimen/_8sdp"
+                            android:padding="@dimen/_12sdp"
+                            android:textColor="@color/black"
+                            android:minWidth="@dimen/_40sdp"
+                            android:background="@drawable/shape_bottom_line"
+                            android:layout_height="wrap_content"
+                            />
+                        <EditText
+                            android:layout_width="wrap_content"
+                            android:hint="0"
+                            android:textColorHint="@color/colorEditTextHint"
+                            android:fontFamily="@font/montserrat_semibold"
+                            android:imeOptions="actionNext"
+                            android:focusable="false"
+                            android:textSize="@dimen/_18sdp"
+                            android:layout_margin="@dimen/_8sdp"
+                            android:padding="@dimen/_12sdp"
+                            android:textColor="@color/black"
+                            android:minWidth="@dimen/_40sdp"
+                            android:background="@drawable/shape_bottom_line"
+                            android:layout_height="wrap_content"
+                            />
+                        <EditText
+                            android:layout_width="wrap_content"
+                            android:hint="0"
+                            android:textColorHint="@color/colorEditTextHint"
+                            android:fontFamily="@font/montserrat_semibold"
+                            android:imeOptions="actionNext"
+                            android:focusable="false"
+                            android:textSize="@dimen/_18sdp"
+                            android:layout_margin="@dimen/_8sdp"
+                            android:padding="@dimen/_12sdp"
+                            android:textColor="@color/black"
+                            android:minWidth="@dimen/_40sdp"
+                            android:background="@drawable/shape_bottom_line"
+                            android:layout_height="wrap_content"
+                            />-->
+
+                    <com.mukesh.OtpView
+
+                        android:id="@+id/otp_view"
+                        style="@style/OtpWidget.OtpView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_10ssp"
+                        android:cursorVisible="true"
+                        android:focusable="true"
+                        android:hint="000000"
+                        android:inputType="number"
+                        android:imeOptions="actionDone"
+                        android:textColor="@android:color/black"
+                        app:itemCount="6"
+                        android:textSize="@dimen/_12ssp"
+                        app:itemSpacing="@dimen/_10ssp"
+                        app:lineColor="@color/colorEditTextLabel"
+                        app:viewType="line">
+                        <requestFocus />
+                    </com.mukesh.OtpView>
+
+                </LinearLayout>
+
+
+                <Button
+                    android:id="@+id/continue_button"
+                    style="@style/ButtonAppearance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_45sdp"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:text="@string/text_send_otp" />
+
+                <LinearLayout
+                    android:id="@+id/resent_otp_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:layout_gravity="center"
+                    android:padding="@dimen/_12sdp">
+                    <TextView
+                        android:id="@+id/resend_otp_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textSize="@dimen/_10ssp"
+                        android:fontFamily="@font/montserrat_regular"
+                        android:text="@string/resend_otp"
+                        android:textColor="@color/grey_approx"/>
+                    <TextView
+                        android:id="@+id/timer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/montserrat_regular"
+                        android:text="00"
+                        android:textSize="@dimen/_11ssp"
+                        android:layout_marginLeft="@dimen/_4sdp"
+                        android:textColor="@color/grey_approx"/>
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</layout>

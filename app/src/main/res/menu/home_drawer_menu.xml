@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/nav_menu_dashboard"
+
+        android:title="@string/title_menu_dashboard" />
+
+    <item
+        android:id="@+id/nav_menu_my_account"
+
+        android:title="@string/title_menu_my_account" />
+
+    <item
+        android:id="@+id/nav_menu_my_orders"
+        android:title="@string/title_menu_my_orders" />
+
+    <item
+        android:id="@+id/nav_menu_my_wish_list"
+
+        android:title="@string/title_menu_my_wish_list" />
+
+
+    <item
+        android:id="@+id/nav_menu_gadget_mart_support_care"
+
+        android:title="@string/title_menu_gadget_mart_support_care" />
+    <item
+        android:id="@+id/nav_menu_gadget_mart_term"
+
+        android:title="@string/title_menu_gadget_mart_term" />
+    <item
+        android:id="@+id/nav_menu_gadget_mart_privacy"
+
+        android:title="@string/title_menu_gadget_mart_privecy" />
+
+    <item
+        android:id="@+id/nav_menu_gadget_mart_refund"
+
+        android:title="@string/title_menu_gadget_mart_refund" />
+    <item
+        android:id="@+id/nav_menu_log_out"
+
+        android:title="@string/title_menu_log_out" />
+
+</menu>

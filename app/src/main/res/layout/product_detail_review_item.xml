@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_5sdp"
+android:gravity="center_vertical"
+        android:layout_marginStart="@dimen/_6sdp"
+        android:layout_marginEnd="@dimen/_6sdp"
+        android:orientation="horizontal">
+
+    <LinearLayout
+        android:id="@+id/layout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+
+        android:background="@drawable/cornor_round"
+        android:padding="3dp"
+        android:gravity="center_vertical"
+        >
+
+        <RatingBar
+            android:id="@+id/rate_product"
+            style="@style/Widget.AppCompat.RatingBar.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="1"
+            android:progressTint="@color/rating_yellow"
+            android:rating="1" />
+
+        <TextView
+            android:id="@+id/rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="5"
+            android:fontFamily="@font/montserrat_medium"
+            android:textSize="@dimen/_11ssp"
+            android:textColor="@color/black"/>
+    </LinearLayout>
+        <TextView
+            android:id="@+id/rating_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Nice Product"
+            android:layout_marginStart="@dimen/_8sdp"
+
+            android:fontFamily="@font/montserrat_medium"
+            android:textSize="@dimen/_11ssp"
+            android:textColor="@color/black"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/rating_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text=""
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_6sdp"
+
+
+        android:fontFamily="@font/montserrat_medium"
+        android:textSize="@dimen/_9ssp"
+        android:textColor="@color/gray"/>
+
+
+</LinearLayout>

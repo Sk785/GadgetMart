@@ -1,0 +1,162 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Base application theme. -->
+    <!--<style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        &lt;!&ndash; Customize your theme here. &ndash;&gt;
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>-->
+
+    <style name="AlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColorPrimary">@color/defaultTextColor</item>
+        <item name="android:background">@color/colorWhitePure</item>
+    </style>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:statusBarColor">@color/white</item>
+
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
+
+    <style name="AppThemeRatingBar" parent="Theme.AppCompat">
+        <item name="ratingBarStyle">@style/MyRatingBar</item>
+    </style>
+
+    <style name="ProgressBarAppearance" parent="AppTheme">
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="MyRatingBar" parent="Widget.AppCompat.RatingBar">
+        <item name="colorAccent">@color/colorRatingBarActive</item>
+    </style>
+
+    <!--    Toolbar     -->
+    <style name="ToolbarTitleAppearance" parent="AppTheme">
+        <item name="android:textColor">@color/colorDarkText</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textSize">@dimen/toolbar_title_text_size</item>
+    </style>
+
+    <!--    Text      -->
+    <style name="TextAppearance" parent="AppTheme">
+        <item name="android:textColor">@color/colorWhitePure</item>
+        <item name="android:fontFamily">@font/montserrat_regular</item>
+        <item name="android:textSize">@dimen/small_text_size</item>
+    </style>
+
+
+    <style name="HeaderText" parent="AppTheme">
+        <item name="android:textColor">@color/colorBlackPure</item>
+        <item name="android:fontFamily">@font/montserrat_medium</item>
+        <item name="android:textSize">@dimen/large_text_size</item>
+    </style>
+
+    <style name="ProductNameTextAppearance" parent="AppTheme">
+        <item name="android:textColor">@color/colorBlackPure</item>
+        <item name="android:fontFamily">@font/montserrat_medium</item>
+        <item name="android:textSize">@dimen/average_text_size</item>
+    </style>
+
+    <style name="ProductNameTextAppearanceNew" parent="AppTheme">
+        <item name="android:textColor">@color/colorBlackPure</item>
+        <item name="android:fontFamily">@font/montserrat_medium</item>
+        <item name="android:textSize">@dimen/_8ssp</item>
+    </style>
+
+    <!--   PayU Money   -->
+    <style name="AppTheme.Green" parent="PayumoneyAppTheme">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorButtonNormal">@color/red_btn_bg_color</item>
+        <item name="alertDialogTheme">@style/AlertDialogStyle</item>
+        <item name="actionMenuTextColor">@color/white</item>
+    </style>
+
+
+    <!--    Button      -->
+    <style name="ButtonAppearance" parent="AppTheme">
+        <item name="android:textColor">@color/colorButtonText</item>
+        <item name="android:fontFamily">@font/montserrat_regular</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">@dimen/large_text_size</item>
+        <item name="android:background">@drawable/shape_rectangle_red_circular_corners</item>
+    </style>
+
+    <!--    Edit text header    -->
+    <style name="EditTextLabelAppearance" parent="AppTheme">
+        <item name="android:textSize">@dimen/small_text_size</item>
+        <item name="android:textColor">@color/colorEditTextLabel</item>
+    </style>
+
+    <style name="RatingBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">@color/silver_approx</item>
+        <item name="colorControlActivated">@color/rating_yellow</item>
+    </style>
+
+    <style name="CustomTextAppearanceTab" parent="TextAppearance.Design.Tab">
+        <item name="textAllCaps">false</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="CustomBottomSheetDialog" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/CustomBottomSheet</item>
+    </style>
+
+    <style name="CustomBottomSheet" parent="Widget.MaterialComponents.BottomSheet">
+        <item name="shapeAppearanceOverlay">@style/CustomShapeAppearanceBottomSheetDialog</item>
+    </style>
+
+    <style name="CustomShapeAppearanceBottomSheetDialog" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">16dp</item>
+        <item name="cornerSizeTopLeft">16dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+    </style>
+
+    <style name="TransparentProgressDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowTitleStyle">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:windowSoftInputMode" tools:ignore="NewApi">stateUnspecified|adjustPan
+        </item>
+        <item name="android:backgroundDimEnabled" tools:targetApi="cupcake">true</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/bounce</item>
+        <item name="android:windowExitAnimation">@anim/bounce_exit</item>
+    </style>
+
+
+    <style name="AppTheme.NoActionBar.FullScreenDialog">
+        <item name="android:windowAnimationStyle">@style/Animation.WindowSlideUpDown</item>
+    </style>
+
+    <style name="Animation.WindowSlideUpDown" parent="@android:style/Animation.Activity">
+        <item name="android:windowEnterAnimation">@anim/slide_up</item>
+        <item name="android:windowExitAnimation">@anim/slide_down</item>
+    </style>
+
+
+
+</resources>

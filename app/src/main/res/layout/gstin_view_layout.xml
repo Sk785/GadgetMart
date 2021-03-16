@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="@dimen/_12sdp">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add GST details:"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_11ssp"
+            android:fontFamily="@font/montserrat_semibold"
+           />
+        <ImageView
+            android:id="@+id/close_view"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/close"
+            android:layout_alignParentRight="true"/>
+
+
+
+
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/gstin_ed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+
+        android:hint="Enter GSTIN"
+        android:maxLength="15"
+        android:textColor="@color/black"/>
+
+    <EditText
+        android:id="@+id/business_ed"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="Business Name"
+        android:maxLength="15"
+        android:textColor="@color/black"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Incorrect GSTIN details will lead to order cancellations"
+        android:layout_marginTop="16dp"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_11ssp"
+        />
+    <Button
+        android:id="@+id/btnConfirm"
+        android:layout_marginTop="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/ButtonAppearance"
+        android:fontFamily="@font/montserrat_medium"
+android:textAllCaps="false"
+        android:text="Confirm &amp; Save"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="30dp"/>
+</LinearLayout>
+</layout>

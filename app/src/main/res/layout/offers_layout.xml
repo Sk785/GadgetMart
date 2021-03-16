@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/home_item_back_color"
+    android:orientation="vertical">
+
+
+
+    <FrameLayout
+        android:id="@+id/offer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_8sdp"
+        android:background="@color/home_item_back_color"
+
+        android:padding="@dimen/_12sdp">
+
+        <TextView
+            android:id="@+id/offers_title_text_view"
+            style="@style/HeaderText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/format_offer_up_to"
+            android:textSize="@dimen/_12ssp" />
+
+        <LinearLayout
+            android:id="@+id/view_all_offers_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end">
+
+            <TextView
+                style="@style/TextAppearance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:background="@drawable/background_round_left_stroke_red"
+                android:padding="@dimen/_6sdp"
+                android:text="@string/text_view_all"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_8ssp" />
+
+            <ImageView
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:background="@drawable/background_round_right_stroke_red"
+                android:padding="@dimen/_2sdp"
+                android:text="@string/text_view_all"
+                app:srcCompat="@drawable/ic_arrow_right" />
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/offers_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_30sdp" />
+
+    </FrameLayout>
+</LinearLayout>

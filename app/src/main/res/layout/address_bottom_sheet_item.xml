@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:gravity="start"
+        android:padding="5dp"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/address_selection_radio_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+android:clickable="false"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/shape_circle_red" />
+
+        <RelativeLayout
+            android:id="@+id/complete_selection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/name_pin_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_bold"
+                android:textColor="@color/defaultTextColor"
+                android:text=""
+                android:textSize="@dimen/_12ssp" />
+
+            <TextView
+                android:id="@+id/address_type_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_toEndOf="@id/name_pin_text_view"
+                android:background="@color/colorAddressTypeBg"
+
+                android:fontFamily="@font/montserrat_bold"
+
+                android:textAllCaps="true"
+                android:textColor="@color/colorLightText" />
+
+            <TextView
+                android:id="@+id/full_address_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:layout_below="@id/name_pin_text_view"
+                android:fontFamily="@font/montserrat_regular"
+                android:textColor="@color/defaultTextColor"
+                android:textSize="@dimen/_12ssp" />
+        </RelativeLayout>
+    </LinearLayout>
+</layout>
