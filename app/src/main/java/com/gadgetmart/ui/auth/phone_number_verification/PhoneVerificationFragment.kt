@@ -31,36 +31,35 @@ import retrofit2.Response
 class PhoneVerificationFragment : BaseFragment<RegisterationFragmentBinding>() {
 
 
+    fun newInstance(bundle: Bundle): PhoneVerificationFragment {
+        val fragment =
+            PhoneVerificationFragment()
 
-        fun newInstance(bundle: Bundle): PhoneVerificationFragment {
-            val fragment =
-                PhoneVerificationFragment()
+        fragment.arguments = bundle
+        return fragment
 
-            fragment.arguments = bundle
-            return fragment
 
-//
 //        fun start(context: Context?) {
 //            val intent = Intent(context, SignInActivity::class.java)
 //            context!!.startActivity(intent)
 //        }
 
     }
-    private var countryCode : String?  = ""
-    private var countryNameCode : String?  = "IN"
-    private var countryName : String?  = "India"
+
+    private var countryCode: String? = ""
+    private var countryNameCode: String? = "IN"
+    private var countryName: String? = "India"
     private var controller: RingcaptchaAPIController? = null
-    private var customDialog : CustomProgressDialog? = null
+    private var customDialog: CustomProgressDialog? = null
     private var email = ""
     private var socilaId = ""
     private var socilaType = ""
     private var name = ""
     private var type = ""
-var isLogin=""
+    var isLogin = ""
 
-    lateinit var  prefernce: SharedPreferences
+    lateinit var prefernce: SharedPreferences
     lateinit var ed: SharedPreferences.Editor
-
 
 
     override fun getContentView(): Int {
@@ -69,11 +68,10 @@ var isLogin=""
 
     override fun initListeners(binding: RegisterationFragmentBinding) {
         customDialog = CustomProgressDialog(activity!!)
-        prefernce=activity!!.getSharedPreferences("long", Context.MODE_PRIVATE)
-        ed=prefernce.edit()
+        prefernce = activity!!.getSharedPreferences("long", Context.MODE_PRIVATE)
+        ed = prefernce.edit()
 
         binding.continueButton?.setOnClickListener {
-
             onContinueButtonTapped(binding)
 
             /*if(binding.countryCodeEditText?.text.toString().equals("")){
@@ -91,8 +89,9 @@ var isLogin=""
         }
 
         binding.countryCodeEditText.setOnClickListener {
-            binding.ccpCountryCode?.launchCountrySelectionDialog(countryNameCode) }
-        binding.countryCodeEditText.isEnabled=false
+            binding.ccpCountryCode?.launchCountrySelectionDialog(countryNameCode)
+        }
+        //  binding.countryCodeEditText.isEnabled=false
         binding.ccpCountryCode?.setOnCountryChangeListener {
             getCountryCode(binding)
         }
@@ -102,26 +101,26 @@ var isLogin=""
             email = bundle.getString(Constants.email)!!
             socilaId = bundle.getString(Constants.socialId)!!
             socilaType = bundle.getString(Constants.type)!!
-            name=bundle.getString("name")!!
-            type=bundle.getString("type1")!!
-            isLogin=bundle.getString("isLogin")!!
-
+            name = bundle.getString("name")!!
+            type = bundle.getString("type1")!!
+            isLogin = bundle.getString("isLogin")!!
 
 
         }
-        Log.e("social data",email+" "+socilaId+" "+socilaType)
-      /*  binding.backIcon.setOnClickListener {
-            activity!!.finish()
-        }*/
+        Log.e("social data", email + " " + socilaId + " " + socilaType)
+        /*  binding.backIcon.setOnClickListener {
+              activity!!.finish()
+          }*/
 
     }
 
     override fun onStart() {
         super.onStart()
-        ed.putLong("long",0L)
+        ed.putLong("long", 0L)
         ed.commit()
     }
-    private fun getCountryCode(binding: RegisterationFragmentBinding){
+
+    private fun getCountryCode(binding: RegisterationFragmentBinding) {
 //        countryCodeName = binding.ccpCountryCode.selectedCountryNameCode
 //        Log.e("Name ::::: ", "" + countryCodeName)
         countryNameCode = binding.ccpCountryCode.selectedCountryNameCode
@@ -138,21 +137,21 @@ var isLogin=""
         val countryCode = binding.countryCodeEditText?.text.toString()
         val phoneNumber = binding.phoneNumberEditText?.text.toString()
 
-        if (TextUtils.isEmpty(countryCode)){
+        if (TextUtils.isEmpty(countryCode)) {
             showToast(R.string.error_msg_country_code)
             return
         }
-        if (!AppUtil.isFieldEmpty(phoneNumber)){
+        if (!AppUtil.isFieldEmpty(phoneNumber)) {
             showToast(R.string.error_msg_phone_number_empty)
             return
         }
-        if(!AppUtil.isValidPhoneNumber(phoneNumber)){
+        if (!AppUtil.isValidPhoneNumber(phoneNumber)) {
             showToast(R.string.error_msg_phone_number)
             return
         }
         customDialog?.dialogShow()
         Log.e("SMS SEND ::::", "" + countryCode + ".." + phoneNumber)
-       sendOtp(countryCode , phoneNumber)
+        sendOtp(countryCode, phoneNumber)
 //            controller!!.sendCaptchaCodeToNumber(
 //                context,
 //                countryCode + phoneNumber,
@@ -197,7 +196,7 @@ var isLogin=""
 
     override fun initView(binding: RegisterationFragmentBinding) {
 //        controller = RingcaptchaAPIController(AppUtil.ringCaptchaAppKey)
-   countryCode = binding.ccpCountryCode?.selectedCountryCodeWithPlus
+        countryCode = binding.ccpCountryCode?.selectedCountryCodeWithPlus
 
 //        window.setFlags(
 //            WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -221,13 +220,13 @@ var isLogin=""
     }
 
     //-------------------------Send otp----------------
-    private fun sendOtp(code: String,phone: String) {
+    private fun sendOtp(code: String, phone: String) {
         try {
 
             ApiClientGenerator
                 .getClient()!!
                 .sendOTP(
-                    phone,type
+                    phone, type, code
                 )
                 .enqueue(object : Callback<ResponseBody?> {
                     override fun onResponse(
@@ -241,7 +240,7 @@ var isLogin=""
                         }
 
                         val response = JSONObject(response.body()?.string()!!)
-                        Log.e("response",response.toString())
+                        Log.e("response", response.toString())
                         if (response.getString("status") == "1") {
 
                             val bundle = Bundle()
@@ -257,17 +256,18 @@ var isLogin=""
                             bundle.putString("isLogin", isLogin)
 
 
-
-
                             (activity as RegisterSetupActivity)
                                 .clearFrame(
-                                    OtpVerificationFragment().newInstance(
-                                        bundle
-                                    )
+                                    OtpVerificationFragment().newInstance(bundle)
                                 )
                             // finish()
                         } else {
-                            AppUtil.firebaseEvent(activity!!,"error","error_events",response.getString("message"))
+                            AppUtil.firebaseEvent(
+                                activity!!,
+                                "error",
+                                "error_events",
+                                response.getString("message")
+                            )
                             showToast(response.getString("message"))
 
                         }

@@ -90,10 +90,8 @@ class AddressPresenter(val context: Activity, contract: MyAddressContract) :
 //            return
 //        }
         AppUtil.firebaseEventForAddress(context,"state","city","address",addressRequest.getState()!!,addressRequest.getCity()!!)
-
         myDialog = CustomProgressDialog(context)
         addAddress(addressRequest, authToken)
-
     }
 
     fun addAddress(addressRequest: AddressRequest, authToken: String) {

@@ -7,11 +7,12 @@ import android.content.Intent
 import android.graphics.Color
 import android.location.*
 import android.os.Bundle
-import android.text.InputType
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -23,6 +24,7 @@ import com.gadgetmart.util.ContextUtils
 import com.gadgetmart.util.custom.CustomProgressDialog
 import java.io.IOException
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class AddNewAddressActivity : BaseActivity<ActivityAddNewAddressBinding>(), MyAddressContract,
@@ -31,11 +33,7 @@ class AddNewAddressActivity : BaseActivity<ActivityAddNewAddressBinding>(), MyAd
     lateinit var binding: ActivityAddNewAddressBinding
     lateinit var addressPresenter: AddressPresenter
     private var countriesPresenter: CountriesPresenter? = null
-    private var countryAdapter: CountryDialogAdapter? = null
-    private var stateAdapter: StateDialogAdapter? = null
-    private var cityAdapter: CityDialogAdapter? = null
     private var countryDialogAdapter: DialogListAdapter? = null
-    private var cityDialogAdapter: CityDialogListAdapter? = null
     private var stateDialogAdapter: StateDialogListAdapter? = null
     private lateinit var myDialog: CustomProgressDialog
     private var countries: ArrayList<Country>? = null
@@ -43,18 +41,17 @@ class AddNewAddressActivity : BaseActivity<ActivityAddNewAddressBinding>(), MyAd
     private var cities: ArrayList<City>? = null
     private var type: String? = ""
     private var addressType: String? = ""
-    private var selectedCountry: String? = ""
     private var selectedCountryId: String? = ""
     private var selectedStateId: String? = ""
     private var id: String? = ""
     private var mDialog: AlertDialog? = null
     private var countryDialog: Dialog? = null
-
     private var latitude: Double = 0.0
-
     private var longitude: Double = 0.0
-
     private var locationManager: LocationManager? = null
+    private var countryCode: String? = "+91"
+    private var countryNameCode: String? = "IN"
+    private var countryName: String? = "India"
 
     override fun getContentView(): Int {
         return R.layout.activity_add_new_address
@@ -106,6 +103,13 @@ class AddNewAddressActivity : BaseActivity<ActivityAddNewAddressBinding>(), MyAd
             binding.countryEditText.setText(intent.extras!!.getString("country"))
             binding.phoneNumberEditText.setText(intent.extras!!.getString("phone_number"))
             binding.pinCodeEditText.setText(intent.extras!!.getString("zipcode"))
+
+            val cc = intent.extras!!.getString("country_code");
+            if (cc != null) {
+                if (cc.isNotEmpty()) {
+                    binding.countryCodeEditText.setText(intent.extras!!.getString("country_code"))
+                }
+            }
             type = intent.extras!!.getString("type")
             addressType = intent.extras!!.getString("address_type")
             if (addressType == "Work") {
@@ -119,7 +123,24 @@ class AddNewAddressActivity : BaseActivity<ActivityAddNewAddressBinding>(), MyAd
         }
     }
 
+    private fun getCountryCode(binding: ActivityAddNewAddressBinding) {
+        countryNameCode = binding.ccpCountryCode.selectedCountryNameCode
+        countryName = binding.ccpCountryCode.selectedCountryName
+        countryCode = binding.ccpCountryCode.selectedCountryCodeWithPlus
+        countryCode.let {
+            binding.countryCodeEditText.setText(it)
+        }
+    }
+
     private fun setListeners(binding: ActivityAddNewAddressBinding) {
+
+        binding.countryCodeEditText.setOnClickListener {
+            binding.ccpCountryCode.launchCountrySelectionDialog(countryNameCode)
+        }
+
+        binding.ccpCountryCode.setOnCountryChangeListener {
+            getCountryCode(binding)
+        }
 
 
         binding.swipeToRefresh?.setOnRefreshListener {
@@ -146,15 +167,51 @@ class AddNewAddressActivity : BaseActivity<ActivityAddNewAddressBinding>(), MyAd
                 countryDialog?.findViewById(R.id.dialog_title_text_view) as TextView
             val recyclerView =
                 countryDialog?.findViewById(R.id.dialog_recycler_view) as RecyclerView
+            val etDialogSearch =
+                countryDialog?.findViewById(R.id.etDialogSearch) as EditText
 
             dialogTitleTextView.text = getString(R.string.text_select_country)
-
             val mLayoutManager: RecyclerView.LayoutManager = LinearLayoutManager(applicationContext)
             recyclerView.layoutManager = mLayoutManager
 
             countryDialogAdapter = DialogListAdapter(this, countries, this)
             recyclerView.adapter = countryDialogAdapter
             countryDialog?.show()
+
+            etDialogSearch.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+                }
+
+                override fun afterTextChanged(s: Editable?) {
+                    if (s.toString().isNotEmpty()) {
+                        val searchCountryList:ArrayList<Country> = ArrayList()
+                        if (countries!!.size > 0) {
+                            for (i in 0 until countries!!.size) {
+                                if (countries!!.get(i).name!!.contains(s.toString(),true)){
+                                    searchCountryList.add(countries!!.get(i))
+                                }
+                            }
+                            if(searchCountryList.size>0){
+                                countryDialogAdapter!!.notifyList(searchCountryList)
+                            }
+                        }
+                    }else{
+                        countryDialogAdapter!!.notifyList(countries!!)
+                    }
+                }
+
+            })
+
 
 //            val mBuilder = AlertDialog.Builder(this, StyledAlertDialog.getStyleRes())
 //            mBuilder.setTitle("Select country")
@@ -191,12 +248,52 @@ class AddNewAddressActivity : BaseActivity<ActivityAddNewAddressBinding>(), MyAd
 
             dialogTitleTextView.text = getString(R.string.text_select_state)
 
+            val etDialogSearch =
+                countryDialog?.findViewById(R.id.etDialogSearch) as EditText
+
             val mLayoutManager: RecyclerView.LayoutManager = LinearLayoutManager(applicationContext)
             recyclerView.layoutManager = mLayoutManager
 
             stateDialogAdapter = StateDialogListAdapter(this, states, this)
             recyclerView.adapter = stateDialogAdapter
             countryDialog?.show()
+
+
+            etDialogSearch.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+                }
+
+                override fun afterTextChanged(s: Editable?) {
+                    if (s.toString().isNotEmpty()) {
+                        val searchCountryList:ArrayList<State> = ArrayList()
+                        if (states!!.size > 0) {
+                            for (i in 0 until states!!.size) {
+                                if (states!!.get(i).name!!.contains(s.toString(),true)){
+                                    searchCountryList.add(states!!.get(i))
+                                }
+                            }
+                            if(searchCountryList.size>0){
+                                stateDialogAdapter!!.updateList(searchCountryList)
+                            }
+                        }
+                    }else{
+                        stateDialogAdapter!!.updateList(states!!)
+                    }
+                }
+
+            })
+
+
         }
 
         binding.cityEditText.setOnClickListener {
@@ -246,7 +343,6 @@ class AddNewAddressActivity : BaseActivity<ActivityAddNewAddressBinding>(), MyAd
         if (type == "new") {
             binding.saveAddressButton.setOnClickListener {
                 val addressType = if (binding.homeAddressRadioButton.isChecked) "Home" else "Work"
-
                 addressPresenter.validateFields(
                     AddressRequest().setName(binding.nameEditText.text.toString())
                         .setAddress1(binding.houseBuildingNoEditText.text.toString())
@@ -259,6 +355,7 @@ class AddNewAddressActivity : BaseActivity<ActivityAddNewAddressBinding>(), MyAd
                         .setAddressType(addressType)
                         .setLatitude("" + latitude)
                         .setLongitude("" + longitude)
+                        .setCountryCode(countryCode)
                         .setZip(binding.pinCodeEditText.text.toString()),
                     ContextUtils.getAuthToken(this)
                 )
@@ -278,6 +375,7 @@ class AddNewAddressActivity : BaseActivity<ActivityAddNewAddressBinding>(), MyAd
                         .setPhoneNumber(binding.phoneNumberEditText.text.toString())
                         .setAddressType(addressType)
                         .setLatitude("" + latitude)
+                        .setCountryCode(countryCode)
                         .setLongitude("" + longitude)
                         .setZip(binding.pinCodeEditText.text.toString()),
                     ContextUtils.getAuthToken(this)
@@ -320,7 +418,7 @@ class AddNewAddressActivity : BaseActivity<ActivityAddNewAddressBinding>(), MyAd
     }
 
     override fun onAddressDataNotFound(message: String?) {
-        AppUtil.firebaseEvent(applicationContext,"error","error_events",message!!)
+        AppUtil.firebaseEvent(applicationContext, "error", "error_events", message!!)
 
         myDialog.dialogDismiss()
         binding.swipeToRefresh?.isRefreshing = false

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
@@ -67,8 +68,8 @@
                             android:hint="@string/hint_pin_code_required"
                             android:imeOptions="actionNext"
                             android:inputType="number"
-                            android:singleLine="true"
                             android:maxLength="6"
+                            android:singleLine="true"
                             android:textColorHint="@color/colorEditTextHint"
                             android:textSize="@dimen/_12ssp" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -139,8 +140,8 @@
                             android:id="@+id/state_input_layout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="@dimen/_10sdp"
                             android:layout_marginTop="@dimen/_10sdp"
+                            android:layout_marginEnd="@dimen/_10sdp"
                             android:layout_weight="1">
 
                             <com.google.android.material.textfield.TextInputEditText
@@ -216,24 +217,64 @@
                             android:textSize="@dimen/_12ssp" />
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.google.android.material.textfield.TextInputLayout
+
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_10sdp">
+                        android:orientation="horizontal">
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/phone_number_edit_text"
-                            android:layout_width="match_parent"
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                        <com.hbb20.CountryCodePicker
+                            android:id="@+id/ccp_country_code"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:visibility="invisible"
+                            app:ccp_showArrow="false"
+                            app:ccp_showFlag="false"
+                            app:ccp_showNameCode="false"
+                            app:ccp_showPhoneCode="true" />
+
+                        <TextView
+                            android:id="@+id/country_code_edit_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/shape_bottom_line"
+                            android:drawableEnd="@drawable/ic_arrow_drop_down_black_24dp"
+                            android:focusable="false"
                             android:fontFamily="@font/montserrat_medium"
-                            android:hint="@string/hint_phone_number_required"
-                            android:imeOptions="actionNext"
-                            android:inputType="number"
-                            android:maxLength="10"
-                            android:singleLine="true"
-                            android:textColorHint="@color/colorEditTextHint"
+                            android:padding="@dimen/_8sdp"
+                            android:text="@string/hint_country_code"
+                            android:textColor="@color/black"
                             android:textSize="@dimen/_12ssp" />
-                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                        </RelativeLayout>
+
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/phone_number_edit_text"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:fontFamily="@font/montserrat_medium"
+                                android:hint="@string/hint_phone_number_required"
+                                android:imeOptions="actionNext"
+                                android:inputType="number"
+                                android:maxLength="10"
+                                android:singleLine="true"
+                                android:textColorHint="@color/colorEditTextHint"
+                                android:textSize="@dimen/_12ssp"/>
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </LinearLayout>
 
                     <TextView
                         android:layout_width="wrap_content"

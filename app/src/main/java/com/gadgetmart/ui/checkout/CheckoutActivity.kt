@@ -112,6 +112,7 @@ class CheckoutActivity : BaseActivity<ActivityCheckoutBinding>(), CartInterface,
         binding.toolbar.toolbar_ohnik_image_view.visibility = View.GONE
         binding.toolbar.toolbar_cart_icon.visibility = View.GONE
         binding.toolbar.toolbar_title_text_view.text = "Checkout"
+        Log.d("asdkjsakdas","ehi ni he");
         getIntentData()
         addData()
         setListeners(binding)
@@ -185,8 +186,6 @@ class CheckoutActivity : BaseActivity<ActivityCheckoutBinding>(), CartInterface,
                     // showToast("Please add your email in edit profile section")
                 } else if (PreferenceManager().getInstance(this).getUserPhone().equals("")) {
                     editValid("Please edit phone number in profile section")
-
-
                 } else {
                     if (addressId == "") {
                         showToast("No address selected")
@@ -194,11 +193,32 @@ class CheckoutActivity : BaseActivity<ActivityCheckoutBinding>(), CartInterface,
                         AppUtil.firebaseEvent(applicationContext, "", "go_to_checkout", "")
 
                         myDialog.dialogShow()
-                        placeOrderApi()
+                        placeOrderApi("PG")
                     }
                 }
             }
+        }
 
+        cash_on_delivery.setOnClickListener {
+            if (isOutOfStock == true) {
+                Toast.makeText(applicationContext, "Some product out of stock please remove first.", Toast.LENGTH_SHORT).show()
+            } else {
+                if (PreferenceManager().getInstance(this).getUserEmail().equals("")) {
+                    editValid("Please edit email in profile section")
+                    // showToast("Please add your email in edit profile section")
+                } else if (PreferenceManager().getInstance(this).getUserPhone().equals("")) {
+                    editValid("Please edit phone number in profile section")
+                } else {
+                    if (addressId == "") {
+                        showToast("No address selected")
+                    } else {
+                        AppUtil.firebaseEvent(applicationContext, "", "go_to_checkout", "")
+
+                        myDialog.dialogShow()
+                        placeOrderApi("COD")
+                    }
+                }
+            }
         }
         changeaddress_txt.setOnClickListener {
             val intent = Intent(applicationContext, MyAddressesActivity::class.java)
@@ -823,13 +843,12 @@ class CheckoutActivity : BaseActivity<ActivityCheckoutBinding>(), CartInterface,
                 })
     }
 
-    fun placeOrderApi() {
-
-
+    fun placeOrderApi(paymentType:String) {
         val obj = JSONObject()
         val arr = JSONArray()
         obj.put(Constants.address_id, addressId)
-        obj.put(Constants.payment_type, "PG")
+        obj.put(Constants.payment_type, paymentType)
+        obj.put(Constants.platform_type, "Android")
         obj.put(Constants.bag_amount, "" + total)
         obj.put(Constants.discount, taxCharges)
         obj.put(Constants.coupon_code, "" + couponCode)
@@ -891,7 +910,14 @@ class CheckoutActivity : BaseActivity<ActivityCheckoutBinding>(), CartInterface,
                             order_number = response.body()?.data!!.order_number
 
                             Log.e("order_id", orderId)
-                            startPayment(order)
+                            if(paymentType=="COD"){
+                                OrderConfirmationActivity.start(
+                                    this@CheckoutActivity,
+                                    order_number
+                                )
+                            }else{
+                                startPayment(order)
+                            }
 
                             // finish()
                         } else {

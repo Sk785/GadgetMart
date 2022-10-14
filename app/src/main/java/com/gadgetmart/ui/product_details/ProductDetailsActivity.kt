@@ -16,6 +16,7 @@ import android.view.ViewGroup
 import android.view.Window
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.facebook.login.LoginManager
@@ -71,11 +72,10 @@ import java.text.DecimalFormat
 
 
 class ProductDetailsActivity : BaseActivity<ActivityProductDetailsBinding>(), ProductDetailContact,
-    ProductsAdapterListener, AddressBottomSheet.ItemClickListener,VarientItemClickInterface,SubCategoryInterVariant,OfferItemClick {
+    ProductsAdapterListener, AddressBottomSheet.ItemClickListener, VarientItemClickInterface,
+    SubCategoryInterVariant, OfferItemClick {
     private lateinit var binding: ActivityProductDetailsBinding
     private lateinit var bindingBottom: VarientBottomViewBinding
-
-
     private lateinit var productDetailPresenter: ProductDetailPresenter
     private var variationAdapter: Varientadapter? = null
     private var product_id = ""
@@ -95,11 +95,11 @@ class ProductDetailsActivity : BaseActivity<ActivityProductDetailsBinding>(), Pr
     private var variantModelList: ArrayList<VarientModel>? = ArrayList()
     private var specificationsList: ArrayList<ProductSpecificationNew>? = ArrayList()
 
-    var savePrecentage=0.0
+    var savePrecentage = 0.0
 
-    var errorMessage=""
+    var errorMessage = ""
 
-    var varientDetailResult:ProductDetailResult?=null
+    var varientDetailResult: ProductDetailResult? = null
 
     private var currentPage = 0
     private var NUM_PAGES = 0
@@ -113,13 +113,12 @@ class ProductDetailsActivity : BaseActivity<ActivityProductDetailsBinding>(), Pr
     private var bottomSheetBehavior: BottomSheetBehavior<LinearLayout>? = null
     private var addressBottomSheet: AddressBottomSheet? = null
     private lateinit var myDialog: CustomProgressDialog
-    var save_amount="";
-    var save_percent="";
+    var save_amount = "";
+    var save_percent = "";
     var Id = ""
     lateinit var global: Global
 
     private lateinit var bsd: BottomSheetDialog
-
 
 
     companion object {
@@ -140,27 +139,24 @@ class ProductDetailsActivity : BaseActivity<ActivityProductDetailsBinding>(), Pr
     override fun init(binding: ActivityProductDetailsBinding) {
         this.binding = binding
         productImages = ArrayList()
-        global=applicationContext as Global
+        global = applicationContext as Global
         getintentData()
         initRecyclerView()
         initPresenter()
         initListeners(binding)
-        global.varitionID=""
-        global.productID=""
+        global.varitionID = ""
+        global.productID = ""
         myDialog = CustomProgressDialog(this@ProductDetailsActivity)
-
-
     }
 
     private fun getintentData() {
         if (intent.extras != null) {
 
-                product_id = intent.extras?.getString("productId")!!
-                categoryName = intent.extras?.getString("category_name")!!
-                productPosition = intent.extras?.getInt("position")!!
-                type = intent.extras?.getString("type")!!
-                productID=intent.extras?.getString("id")!!
-
+            product_id = intent.extras?.getString("productId")!!
+            categoryName = intent.extras?.getString("category_name")!!
+            productPosition = intent.extras?.getInt("position")!!
+            type = intent.extras?.getString("type")!!
+            productID = intent.extras?.getString("id")!!
 
 
         }
@@ -175,7 +171,7 @@ class ProductDetailsActivity : BaseActivity<ActivityProductDetailsBinding>(), Pr
 
         variationAdapter = Varientadapter(this, ArrayList(), this)
         binding.variationsRecyclerView.adapter = variationAdapter
-        binding.variationsRecyclerView.isNestedScrollingEnabled=false
+        binding.variationsRecyclerView.isNestedScrollingEnabled = false
     }
 
     private fun initBottomSheet() {
@@ -237,25 +233,25 @@ class ProductDetailsActivity : BaseActivity<ActivityProductDetailsBinding>(), Pr
         }
         binding.toolbarID.toolbarTitleTextView.text = categoryName
         binding.productReadMoreTextView.setOnClickListener {
-            if(PreferenceManager().getInstance(this).getAuthToken().equals("")){
-                loginUser(binding,"Please login to continue")
-            }else {
+            if (PreferenceManager().getInstance(this).getAuthToken().equals("")) {
+                loginUser(binding, "Please login to continue")
+            } else {
                 ProductDescriptionActivity.start(
                     this,
                     variation,
-                            save_amount!!,
-                        specificationsList!!
+                    save_amount!!,
+                    specificationsList!!
 
 
                 )
             }
         }
         binding.addToBagBtn.setOnClickListener {
-            if(PreferenceManager().getInstance(this).getAuthToken().equals("")){
-                loginUser(binding,"To add this product to cart you need to\nlogin first")
-            }else {
+            if (PreferenceManager().getInstance(this).getAuthToken().equals("")) {
+                loginUser(binding, "To add this product to cart you need to\nlogin first")
+            } else {
                 if (quantityInCart == 0 && quantityValue >= 1) {
-                    callAddedCartApi("bag", quantityValue)
+                    callAddedCartApi("bag", quantityValue,true)
                 } else {
                     startActivity(Intent(this, CartActivity::class.java))
                 }
@@ -281,9 +277,9 @@ class ProductDetailsActivity : BaseActivity<ActivityProductDetailsBinding>(), Pr
               startActivity(i)*/
         }
         binding.updateCountLayout.decreaseCountImageView.setOnClickListener {
-            if(PreferenceManager().getInstance(this).getAuthToken().equals("")){
-                loginUser(binding,"To add this product to cart you need to\nlogin first")
-            }else {
+            if (PreferenceManager().getInstance(this).getAuthToken().equals("")) {
+                loginUser(binding, "To add this product to cart you need to\nlogin first")
+            } else {
                 if (quantityInCart == 0) {
                     if (quantityValue > 1) {
                         quantityValue--
@@ -291,7 +287,7 @@ class ProductDetailsActivity : BaseActivity<ActivityProductDetailsBinding>(), Pr
                     }
                 } else {
                     if (quantityValue != 1) {
-                        callAddedCartApi("bag", quantityValue - 1)
+                        callAddedCartApi("bag", quantityValue - 1,false)
                     } else {
 
                         StyledAlertDialog.builder(this)
@@ -314,18 +310,17 @@ class ProductDetailsActivity : BaseActivity<ActivityProductDetailsBinding>(), Pr
         binding.pinCodeEditText.setOnClickListener { showBottomSheet() }
 
         binding.updateCountLayout.increaseCountImageView.setOnClickListener {
-            if(PreferenceManager().getInstance(this).getAuthToken().equals("")){
-                loginUser(binding,"To add this product to cart you need to\nlogin first")
-            }else {
+            if (PreferenceManager().getInstance(this).getAuthToken().equals("")) {
+                loginUser(binding, "To add this product to cart you need to\nlogin first")
+            } else {
                 if (quantityValue == productQuantityValue) {
                     showToast("Out of stock product")
-                }else {
+                } else {
                     if (quantityInCart == 0) {
                         quantityValue++
                         binding.updateCountLayout.quantityTextView.text = "" + quantityValue
                     } else {
-                        callAddedCartApi("bag", quantityValue + 1)
-
+                        callAddedCartApi("bag", quantityValue + 1,false)
                     }
                 }
             }
@@ -353,33 +348,29 @@ class ProductDetailsActivity : BaseActivity<ActivityProductDetailsBinding>(), Pr
         }
 
         binding().shareProductLayout.setOnClickListener {
-            if(PreferenceManager().getInstance(this).getAuthToken().equals("")){
-                loginUser(binding,"Please login to continue")
-            }else {
+            if (PreferenceManager().getInstance(this).getAuthToken().equals("")) {
+                loginUser(binding, "Please login to continue")
+            } else {
                 onShareButtonTapped()
             }
         }
         binding().addToWishlistLayout.setOnClickListener {
-            if(PreferenceManager().getInstance(this).getAuthToken().equals("")){
-                loginUser(binding,"To add this product to wishlist you need to\nlogin first")
-            }else {
+            if (PreferenceManager().getInstance(this).getAuthToken().equals("")) {
+                loginUser(binding, "To add this product to wishlist you need to\nlogin first")
+            } else {
                 onWishListTapped()
             }
         }
         buy_btn.setOnClickListener {
-            if(PreferenceManager().getInstance(this).getAuthToken().equals("")){
-                loginUser(binding,"To buy this product you need to\nlogin first")
-            }else {
-                Log.e("cariation reponse",Gson().toJson(variation))
+            if (PreferenceManager().getInstance(this).getAuthToken().equals("")) {
+                loginUser(binding, "To buy this product you need to\nlogin first")
+            } else {
+                Log.e("cariationreponse", Gson().toJson(variation))
                 val intent = Intent(applicationContext, CheckoutActivity_Direct::class.java)
                 intent.putExtra("variations", variation)
-
-
+                intent.putExtra("quantity",binding.updateCountLayout.quantityTextView.text.toString())
                 startActivity(intent)
             }
-
-
-
 
 
         }
@@ -421,10 +412,22 @@ class ProductDetailsActivity : BaseActivity<ActivityProductDetailsBinding>(), Pr
     private fun onShareButtonTapped() {
         try {
             if (productImages == null || productImages!!.size == 0) {
-                genratelinkType(binding.productNameTextView.text.toString(),binding.productDetailTextView.text.toString(),"",product_id,productID);
+                genratelinkType(
+                    binding.productNameTextView.text.toString(),
+                    binding.productDetailTextView.text.toString(),
+                    "",
+                    product_id,
+                    productID
+                );
 
-            }else{
-                genratelinkType(binding.productNameTextView.text.toString(),binding.productDetailTextView.text.toString(),productImages!![0].name,product_id,productID);
+            } else {
+                genratelinkType(
+                    binding.productNameTextView.text.toString(),
+                    binding.productDetailTextView.text.toString(),
+                    productImages!![0].name,
+                    product_id,
+                    productID
+                );
 
             }
 //            val shareIntent = Intent(Intent.ACTION_SEND)
@@ -452,10 +455,10 @@ class ProductDetailsActivity : BaseActivity<ActivityProductDetailsBinding>(), Pr
 
     override fun onResume() {
         super.onResume()
-       // initPresenter()
+        // initPresenter()
     }
 
-    fun callAddedCartApi(type: String, quantity: Int) {
+    fun callAddedCartApi(type: String, quantity: Int,isFirstTime: Boolean) {
         myDialog.dialogShow()
         if (quantity == 1 && quantityInCart == 1) {
             StyledAlertDialog.builder(this)
@@ -470,8 +473,7 @@ class ProductDetailsActivity : BaseActivity<ActivityProductDetailsBinding>(), Pr
                 .setNegativeButton(R.string.text_no) { dialog, _ ->
                     dialog.dismiss()
                 }.show()
-        }
-        else addOrUpdateCart(variationId, quantity, type)
+        } else addOrUpdateCart(variationId, quantity, type,isFirstTime)
     }
 
     override fun onProductDetailDataFound(
@@ -488,160 +490,176 @@ class ProductDetailsActivity : BaseActivity<ActivityProductDetailsBinding>(), Pr
         } else {
             binding().toolbarID.toolbarCartItemCount.visibility = View.GONE
         }
-        variation=productDetailResult!!.default_variant
+        variation = productDetailResult!!.default_variant
 
-        var p=(variation!!.save_amount!!.toDouble() / variation!!.currentBatch!!.product_mrp!!.toDouble()) * 100
+        var p =
+            (variation!!.save_amount!!.toDouble() / variation!!.currentBatch!!.product_mrp!!.toDouble()) * 100
 
-        binding.saveTxt.text="You save ₹"+AppUtil.roundTwoDecimalPlaces(this,variation!!.save_amount!!.toDouble())+"("+AppUtil.roundTwoDecimalPlaces(this,p)+"%)"
-save_amount=binding.saveTxt.text.toString();
+        binding.saveTxt.text = "You save ₹" + AppUtil.roundTwoDecimalPlaces(
+            this,
+            variation!!.save_amount!!.toDouble()
+        ) + "(" + AppUtil.roundTwoDecimalPlaces(this, p) + "%)"
+        save_amount = binding.saveTxt.text.toString();
 
-variationId=variation!!?.variationId
-        variantList=productDetailResult!!.selected_variant
-        variantModelList=productDetailResult!!.variants
+        variationId = variation!!?.variationId
+        variantList = productDetailResult!!.selected_variant
+        variantModelList = productDetailResult!!.variants
 
         updateUI()
-        binding.mainLayout.smoothScrollBy(0,0)
-        specificationsList=productDetailResult.product_specifications
+        binding.mainLayout.smoothScrollBy(0, 0)
+        specificationsList = productDetailResult.product_specifications
 
 //        if(variations!=null){
 //        }
     }
 
-    fun updateRecent(variationId:String){
+    fun updateRecent(variationId: String) {
         productDetailPresenter.addToRecent(
             variationId,
             ContextUtils.getAuthToken(this)
         )
     }
+
     private fun updateUI() {
 
         myDialog.dialogShow()
 
 
-        vId=variation!!.productId.toString()
-if(variation?.product_reviews!!.size>0){
-    binding.reviewView.visibility=View.VISIBLE
+        vId = variation!!.productId.toString()
+        if (variation?.product_reviews!!.size > 0) {
+            binding.reviewView.visibility = View.VISIBLE
 
-    binding.productRating.rating=variation?.rating!!.toFloat()
-binding.ratingsCountTextView.setText("("+variation?.rating!!.toString()+")")
-binding.totalReviewsTextView.setText(variation?.product_reviews!!.size.toString()+" Reviews")
-    val subCategoriesLayoutManager = LinearLayoutManager(this)
+            binding.productRating.rating = variation?.rating!!.toFloat()
+            binding.ratingsCountTextView.setText("(" + variation?.rating!!.toString() + ")")
+            binding.totalReviewsTextView.setText(variation?.product_reviews!!.size.toString() + " Reviews")
+            val subCategoriesLayoutManager = LinearLayoutManager(this)
 
-    subCategoriesLayoutManager.orientation = LinearLayoutManager.VERTICAL
+            subCategoriesLayoutManager.orientation = LinearLayoutManager.VERTICAL
 
-    binding().productReviewsRecyclerView.layoutManager = subCategoriesLayoutManager
+            binding().productReviewsRecyclerView.layoutManager = subCategoriesLayoutManager
 
-    binding().productReviewsRecyclerView.adapter=ProductDetailReviewAdapter(this,variation?.product_reviews!!)
-
-
-}else{
-    binding.reviewView.visibility=View.GONE
-
-}
-if(variation?.offer_available!!){
-    binding.offerAvailable.visibility=View.VISIBLE
-
-    val subCategoriesLayoutManager = LinearLayoutManager(this)
-
-    subCategoriesLayoutManager.orientation = LinearLayoutManager.VERTICAL
-
-    binding().offerListing.layoutManager = subCategoriesLayoutManager
-
-    binding().offerListing.adapter=OfferListingAdapter(this,variation?.offers,this@ProductDetailsActivity)
+            binding().productReviewsRecyclerView.adapter =
+                ProductDetailReviewAdapter(this, variation?.product_reviews!!)
 
 
-}else{
-    binding.offerAvailable.visibility=View.GONE
+        } else {
+            binding.reviewView.visibility = View.GONE
 
-}
+        }
+        if (variation?.offer_available!!) {
+            binding.offerAvailable.visibility = View.VISIBLE
 
-            if (variation?.wishList != null) {
-                wishListVariationId = variation?.wishList?.variation_id!!
-                wishListId = variation?.wishList?.wishList_id!!
-                updateIconTint(true, binding().addToWishlistTextView, R.color.colorPrimary)
-            } else {
-                wishListVariationId = ""
-                wishListId = 0
-                updateIconTint(false, binding().addToWishlistTextView, R.color.colorHeartEmpty)
-            }
+            val subCategoriesLayoutManager = LinearLayoutManager(this)
 
-        if(variation?.rating!=null){
-            var avg=variation?.rating
+            subCategoriesLayoutManager.orientation = LinearLayoutManager.VERTICAL
 
-            binding.rateProduct.rating=avg!!.toFloat()
+            binding().offerListing.layoutManager = subCategoriesLayoutManager
+
+            binding().offerListing.adapter =
+                OfferListingAdapter(this, variation?.offers, this@ProductDetailsActivity)
+
+
+        } else {
+            binding.offerAvailable.visibility = View.GONE
+
+        }
+
+        if (variation?.wishList != null) {
+            wishListVariationId = variation?.wishList?.variation_id!!
+            wishListId = variation?.wishList?.wishList_id!!
+            updateIconTint(true, binding().addToWishlistTextView, R.color.colorPrimary)
+        } else {
+            wishListVariationId = ""
+            wishListId = 0
+            updateIconTint(false, binding().addToWishlistTextView, R.color.colorHeartEmpty)
+        }
+
+        if (variation?.rating != null) {
+            var avg = variation?.rating
+
+            binding.rateProduct.rating = avg!!.toFloat()
 
 
         }
-            binding().colorLabelTextView.text = "Select Variant"
-            Log.e("itme", Gson().toJson(productsDataItems))
-            productImages = variation?.productImages
+        binding().colorLabelTextView.text = "Select Variant"
+        Log.e("itme", Gson().toJson(productsDataItems))
+        productImages = variation?.productImages
         variationAdapter!!.updateList(variantList)
 
-            if (productImages == null || productImages!!.size == 0) {
-                variation?.productImages?.let { productImages?.addAll(it) }
+        if (productImages == null || productImages!!.size == 0) {
+            variation?.productImages?.let { productImages?.addAll(it) }
 
-            }
-            binding.productImagesViewPager.adapter =
-                variation?.productImages?.let { SlidingImageAdapter(this, it) }
+        }
+        binding.productImagesViewPager.adapter =
+            variation?.productImages?.let { SlidingImageAdapter(this, it) }
 
-            NUM_PAGES = productImages?.size ?: 0
+        NUM_PAGES = productImages?.size ?: 0
 
-            binding.dotsIndicator.attachToViewPager(binding.productImagesViewPager)
+        binding.dotsIndicator.attachToViewPager(binding.productImagesViewPager)
 
-                    binding.productNameTextView.text = variation?.product_title
-        AppUtil.firebaseEvent(applicationContext,"name","product_viewed",variation?.product_title!!)
+        binding.productNameTextView.text = variation?.product_title
+        AppUtil.firebaseEvent(
+            applicationContext,
+            "name",
+            "product_viewed",
+            variation?.product_title!!
+        )
 
 
-        if(variation!!.product?.brand==null){
-                    binding.brandNameTextView.visibility=View.GONE
+        if (variation!!.product?.brand == null) {
+            binding.brandNameTextView.visibility = View.GONE
 
-                }else{
-                    binding.brandNameTextView.text = "Brand: "+variation!!.product?.brand
+        } else {
+            binding.brandNameTextView.text = "Brand: " + variation!!.product?.brand
 
-                }
-        if(variation?.product!!.description!=null){
+        }
+        if (variation?.product!!.description != null) {
             binding.productDetailTextView.text = variation?.product!!.description
 
-        }else{
+        } else {
             binding.productDetailTextView.text = variation?.product!!.short_description
 
         }
 
         val df = DecimalFormat("#.##")
         df.setRoundingMode(RoundingMode.CEILING)
-            if (variation?.currentBatch != null) {
-                if(variation?.offer_available!!){
-                    binding.saveTxt.visibility=View.VISIBLE
+        if (variation?.currentBatch != null) {
+            if (variation?.offer_available!!) {
+                binding.saveTxt.visibility = View.VISIBLE
 
-                    binding.productNetPriceTextView.visibility = View.VISIBLE
-                    binding.productNetPriceTextView.paintFlags =
-                        binding.productNetPriceTextView.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                binding.productNetPriceTextView.visibility = View.VISIBLE
+                binding.productNetPriceTextView.paintFlags =
+                    binding.productNetPriceTextView.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
 
-                    val str = resources.getText(R.string.us_dollar).toString()
-                        .plus( df.format(variation!!.currentBatch?.product_mrp))
-                    binding.productNetPriceTextView.text = str
+                val str = resources.getText(R.string.us_dollar).toString()
+                    .plus(df.format(variation!!.currentBatch?.product_mrp))
+                binding.productNetPriceTextView.text = str
 
 
-                    binding.productDiscountedPriceTextView.text =
-                        "\u20B9" +  df.format(variation!!.offer_discount_price)
-                    var p =
-                        (variation!!.save_amount!!.toDouble() / variation!!.currentBatch!!.product_mrp!!.toDouble()) * 100
-                    savePrecentage = AppUtil.roundTwoDecimalPlaces(this, p)
-                    if(savePrecentage<1){
-                        binding.saveTxt.text = "You save ₹" +df.format( AppUtil.roundTwoDecimalPlaces(
+                binding.productDiscountedPriceTextView.text =
+                    "\u20B9" + df.format(variation!!.offer_discount_price)
+                var p =
+                    (variation!!.save_amount!!.toDouble() / variation!!.currentBatch!!.product_mrp!!.toDouble()) * 100
+                savePrecentage = AppUtil.roundTwoDecimalPlaces(this, p)
+                if (savePrecentage < 1) {
+                    binding.saveTxt.text = "You save ₹" + df.format(
+                        AppUtil.roundTwoDecimalPlaces(
                             this,
                             variation!!.save_amount!!.toDouble()
-                        )) + "(" + savePrecentage + "%)"
-                    }else{
-                        binding.saveTxt.text = "You save ₹" +df.format( AppUtil.roundTwoDecimalPlaces(
+                        )
+                    ) + "(" + savePrecentage + "%)"
+                } else {
+                    binding.saveTxt.text = "You save ₹" + df.format(
+                        AppUtil.roundTwoDecimalPlaces(
                             this,
                             variation!!.save_amount!!.toDouble()
-                        )) + "(" + Math.round(savePrecentage) + "%)"
-                    }
+                        )
+                    ) + "(" + Math.round(savePrecentage) + "%)"
+                }
 
-                    save_amount = binding.saveTxt.text.toString()
-                }else{
-                if (variation!!.currentBatch?.product_mrp==variation!!.currentBatch?.base_rate!!) {
+                save_amount = binding.saveTxt.text.toString()
+            } else {
+                if (variation!!.currentBatch?.product_mrp == variation!!.currentBatch?.base_rate!!) {
                     binding.productNetPriceTextView.visibility = View.INVISIBLE
                     binding.productDiscountedPriceTextView.visibility = View.VISIBLE
 
@@ -652,65 +670,78 @@ if(variation?.offer_available!!){
 
 
                     binding.productDiscountedPriceTextView.text =
-                        "\u20B9" +  df.format(variation!!.currentBatch?.product_mrp)
+                        "\u20B9" + df.format(variation!!.currentBatch?.product_mrp)
 
-                    binding.saveTxt.visibility=View.GONE
+                    binding.saveTxt.visibility = View.GONE
                 } else {
-                    binding.saveTxt.visibility=View.VISIBLE
+                    binding.saveTxt.visibility = View.VISIBLE
 
                     binding.productNetPriceTextView.visibility = View.VISIBLE
                     binding.productNetPriceTextView.paintFlags =
                         binding.productNetPriceTextView.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
 
                     val str = resources.getText(R.string.us_dollar).toString()
-                        .plus( df.format(variation!!.currentBatch?.product_mrp))
+                        .plus(df.format(variation!!.currentBatch?.product_mrp))
                     binding.productNetPriceTextView.text = str
 
 
                     binding.productDiscountedPriceTextView.text =
-                        "\u20B9" +  df.format(variation!!.currentBatch?.base_rate)
+                        "\u20B9" + df.format(variation!!.currentBatch?.base_rate)
                     var p =
                         (variation!!.save_amount!!.toDouble() / variation!!.currentBatch!!.product_mrp!!.toDouble()) * 100
                     savePrecentage = AppUtil.roundTwoDecimalPlaces(this, p)
-if(savePrecentage<1){
-    binding.saveTxt.text = "You save ₹" +df.format( AppUtil.roundTwoDecimalPlaces(
-        this,
-        variation!!.save_amount!!.toDouble()
-    )) + "(" + savePrecentage + "%)"
-}else{
-    binding.saveTxt.text = "You save ₹" +df.format( AppUtil.roundTwoDecimalPlaces(
-        this,
-        variation!!.save_amount!!.toDouble()
-    )) + "(" + Math.round(savePrecentage) + "%)"
-}
+                    if (savePrecentage < 1) {
+                        binding.saveTxt.text = "You save ₹" + df.format(
+                            AppUtil.roundTwoDecimalPlaces(
+                                this,
+                                variation!!.save_amount!!.toDouble()
+                            )
+                        ) + "(" + savePrecentage + "%)"
+                    } else {
+                        binding.saveTxt.text = "You save ₹" + df.format(
+                            AppUtil.roundTwoDecimalPlaces(
+                                this,
+                                variation!!.save_amount!!.toDouble()
+                            )
+                        ) + "(" + Math.round(savePrecentage) + "%)"
+                    }
 
                     save_amount = binding.saveTxt.text.toString();
-                }}
-                productQuantityValue = (variation!!.currentBatch!!.balance_quantity!!).toInt()
-                if (variation!!.cart != null && variation?.cart?.quantity != 0) {
-                    quantityInCart = variation!!.cart?.quantity!!
-                    quantityValue = quantityInCart
-                    binding.updateCountLayout.quantityTextView.text = "" + quantityInCart
-                    binding.removeTextView.visibility = View.GONE
-                    binding.addToBagBtn.text = getString(R.string.action_go_to_cart)
-                    status = "true"
-                    AppUtil.firebaseEvent(applicationContext,"name","product_added_to_cart",variation?.product_title!!)
-
-                    global.notificationSchdule(applicationContext, PreferenceManager().getInstance(applicationContext).getUserName()!!)
-
-
-                } else {
-                    quantityInCart = 0
-//                    quantityValue = 1
-                    binding.updateCountLayout.quantityTextView.text = "" + quantityValue
-                    binding.addToBagBtn.text = getString(R.string.action_add_to_bag)
-                    binding.removeTextView.visibility = View.GONE
-                    status = "false"
-                    global.cancelNotification(applicationContext)
-
                 }
+            }
+            productQuantityValue = (variation!!.currentBatch!!.balance_quantity!!).toInt()
+            if (variation!!.cart != null && variation?.cart?.quantity != 0) {
+                quantityInCart = variation!!.cart?.quantity!!
+                quantityValue = quantityInCart
+                binding.updateCountLayout.quantityTextView.text = "" + quantityInCart
+                binding.removeTextView.visibility = View.GONE
+                binding.addToBagBtn.text = getString(R.string.action_go_to_cart)
+                status = "true"
+                AppUtil.firebaseEvent(
+                    applicationContext,
+                    "name",
+                    "product_added_to_cart",
+                    variation?.product_title!!
+                )
+
+                global.notificationSchdule(
+                    applicationContext,
+                    PreferenceManager().getInstance(applicationContext).getUserName()!!
+                )
+
+
+            } else {
+                quantityInCart = 0
+//                    quantityValue = 1
+                binding.updateCountLayout.quantityTextView.text = "" + quantityValue
+                binding.addToBagBtn.text = getString(R.string.action_add_to_bag)
+                binding.removeTextView.visibility = View.GONE
+                status = "false"
+                global.cancelNotification(applicationContext)
 
             }
+
+        }
 
 //            if (productsDataItems?.taxable.equals("yes", ignoreCase = true)) {
 //                val taxDetails: ProductItemsTax = productsDataItems?.tax!!
@@ -733,37 +764,42 @@ if(savePrecentage<1){
 //            }
 
 
-            val favDrawable: Drawable = ContextCompat.getDrawable(this, R.drawable.fav_enable)!!
-            val removeFavDrawable: Drawable =
-                ContextCompat.getDrawable(this, R.drawable.fav_disable)!!
-            if (variation?.wishList != null) {
-                isAddedToWishList = true
-                productsDataItems?.isAddedToWishList = true
-                binding.favProductImageView.setImageDrawable(favDrawable)
+        val favDrawable: Drawable = ContextCompat.getDrawable(this, R.drawable.fav_enable)!!
+        val removeFavDrawable: Drawable =
+            ContextCompat.getDrawable(this, R.drawable.fav_disable)!!
+        if (variation?.wishList != null) {
+            isAddedToWishList = true
+            productsDataItems?.isAddedToWishList = true
+            binding.favProductImageView.setImageDrawable(favDrawable)
+        } else {
+            isAddedToWishList = false
+            productsDataItems?.isAddedToWishList = false
+            binding.favProductImageView.setImageDrawable(removeFavDrawable)
+        }
+
+        binding.favProductImageView.setOnClickListener {
+            val wishlist = variation?.wishList
+            //            productDetailPresenter = ProductDetailPresenter(this, this)
+            if (wishlist != null) {
+                productDetailPresenter.removeFromWishList(
+                    wishlist.wishList_id!!,
+                    ContextUtils.getAuthToken(this)
+                )
             } else {
-                isAddedToWishList = false
-                productsDataItems?.isAddedToWishList = false
-                binding.favProductImageView.setImageDrawable(removeFavDrawable)
+                AppUtil.firebaseEvent(
+                    applicationContext,
+                    "name",
+                    "wishlist",
+                    variation?.product_title!!
+                )
+
+                productDetailPresenter.addToWishList(
+                    variation?.variationId!!,
+                    ContextUtils.getAuthToken(this)
+                )
             }
 
-            binding.favProductImageView.setOnClickListener {
-                val wishlist = variation?.wishList
-                //            productDetailPresenter = ProductDetailPresenter(this, this)
-                if (wishlist != null) {
-                    productDetailPresenter.removeFromWishList(
-                        wishlist.wishList_id!!,
-                        ContextUtils.getAuthToken(this)
-                    )
-                } else {
-                    AppUtil.firebaseEvent(applicationContext,"name","wishlist",variation?.product_title!!)
-
-                    productDetailPresenter.addToWishList(
-                        variation?.variationId!!,
-                        ContextUtils.getAuthToken(this)
-                    )
-                }
-
-            }
+        }
 
         myDialog.dialogDismiss()
     }
@@ -773,12 +809,12 @@ if(savePrecentage<1){
     }
 
     override fun onProductDetailDataNotFound(message: String) {
-        AppUtil.firebaseEvent(applicationContext,"error","error_events", message)
+        AppUtil.firebaseEvent(applicationContext, "error", "error_events", message)
         showToast(message)
     }
 
     override fun onProductAddedToWishList(wishListResult: WishListResult?, message: String) {
-       // showToast(message)
+        // showToast(message)
         productDetailPresenter = ProductDetailPresenter(
             this@ProductDetailsActivity,
             this@ProductDetailsActivity
@@ -838,9 +874,13 @@ if(savePrecentage<1){
         }
     }
 
-    private fun addOrUpdateCart(variationId: String, quantity: Int, type: String) {
+    private fun addOrUpdateCart(
+        variationId: String,
+        quantity: Int,
+        type: String,
+        isFirstTime: Boolean
+    ) {
         try {
-
             ApiClientGenerator
                 .getClient()!!
                 .addOrUpdatecart(
@@ -857,7 +897,9 @@ if(savePrecentage<1){
                         if (response.body()!!.status == 1) {
                             if (type == "bag") {
                                 response.body()?.message?.let {
-                                    showToast(it)
+                                    if (isFirstTime) {
+                                        showToast("Product has been added to bag")
+                                    }
                                 }
                                 productDetailPresenter = ProductDetailPresenter(
                                     this@ProductDetailsActivity,
@@ -877,7 +919,12 @@ if(savePrecentage<1){
                             }
 
                         } else {
-                            AppUtil.firebaseEvent(applicationContext,"error","error_events", response.body()!!.message)
+                            AppUtil.firebaseEvent(
+                                applicationContext,
+                                "error",
+                                "error_events",
+                                response.body()!!.message
+                            )
 
                         }
                     }
@@ -924,7 +971,12 @@ if(savePrecentage<1){
                             ContextUtils.getAuthToken(this@ProductDetailsActivity)
                         )
                     } else {
-                        AppUtil.firebaseEvent(applicationContext,"error","error_events", response.body()!!.message)
+                        AppUtil.firebaseEvent(
+                            applicationContext,
+                            "error",
+                            "error_events",
+                            response.body()!!.message
+                        )
 
                     }
                 }
@@ -1029,22 +1081,22 @@ if(savePrecentage<1){
     override fun onWish(adapterItem: Int?, categoryName: String?) {
     }
 
-    override fun onAddToBag(adapterItem: Int?, product_id: String?,text:String,title:String) {
+    override fun onAddToBag(adapterItem: Int?, product_id: String?, text: String, title: String) {
     }
 
-    override fun onItemClick(item: String?,code:String?) {
+    override fun onItemClick(item: String?, code: String?) {
 
         if (item == "submit") {
             myDialog.dialogShow();
             checkPinCodeAvaliable(code!!);
 
-        } else if (item == "close"){
+        } else if (item == "close") {
             addressBottomSheet?.dismiss()
         }
 
     }
 
-    private fun loginUser(binding: ActivityProductDetailsBinding,message:String) {
+    private fun loginUser(binding: ActivityProductDetailsBinding, message: String) {
 
 
         val dialog = Dialog(this)
@@ -1056,8 +1108,8 @@ if(savePrecentage<1){
         }
         val btnok = dialog.findViewById(R.id.okbtn) as TextView
         val btncancel = dialog.findViewById(R.id.cancelbtn) as TextView
-        val dialog_msg=dialog.findViewById(R.id.dialog_msg) as TextView
-        dialog_msg.text=message
+        val dialog_msg = dialog.findViewById(R.id.dialog_msg) as TextView
+        dialog_msg.text = message
 
         btnok.setOnClickListener {
             dialog.dismiss()
@@ -1092,7 +1144,6 @@ if(savePrecentage<1){
     //-------------------------Add prodeuct in cart----------------
     private fun checkPinCodeAvaliable(code: String) {
         try {
-
             ApiClientGenerator
                 .getClient()!!
                 .checkPincode(
@@ -1111,14 +1162,17 @@ if(savePrecentage<1){
                         }
 
                         val response = JSONObject(response.body()?.string()!!)
-                        Log.e("response",response.toString())
+                        Log.e("response", response.toString())
                         if (response.getString("status") == "1") {
                             addressBottomSheet?.dismiss()
                             binding.pinCodeEditText.setText(code)
-
+                            pinNotAvalible(binding, "Delivery is available at your area.")
                             // finish()
                         } else {
-                            pinNotAvalible(binding)
+                            pinNotAvalible(
+                                binding,
+                                "Sorry, the product delivery is not available at your area."
+                            )
                         }
                     }
 
@@ -1137,7 +1191,7 @@ if(savePrecentage<1){
     }
 
 
-    private fun pinNotAvalible(binding: ActivityProductDetailsBinding) {
+    private fun pinNotAvalible(binding: ActivityProductDetailsBinding, message: String) {
 
 
         val dialog = Dialog(this)
@@ -1148,8 +1202,8 @@ if(savePrecentage<1){
             dialog.window!!.attributes.windowAnimations = R.style.DialogAnimation
         }
         val btnok = dialog.findViewById(R.id.okbtn) as TextView
-        val dialog_msg=dialog.findViewById(R.id.dialog_msg) as TextView
-        dialog_msg.text="Sorry, the product delivery is not available at your area"
+        val dialog_msg = dialog.findViewById(R.id.dialog_msg) as TextView
+        dialog_msg.text = message
 
         btnok.setOnClickListener {
             dialog.dismiss()
@@ -1161,48 +1215,23 @@ if(savePrecentage<1){
 
     }
 
-//----------------Varient bottom sheet------------
-private fun openVarientSheet() {
-    val myDrawerView = layoutInflater.inflate(R.layout.varient_bottom_view, null)
-     bindingBottom =
-        VarientBottomViewBinding.inflate(layoutInflater, myDrawerView as ViewGroup, false)
+    //----------------Varient bottom sheet------------
+    private fun openVarientSheet() {
+        val myDrawerView = layoutInflater.inflate(R.layout.varient_bottom_view, null)
+        bindingBottom =
+            VarientBottomViewBinding.inflate(layoutInflater, myDrawerView as ViewGroup, false)
 
-    bsd = BottomSheetDialog(this)
-    bsd.requestWindowFeature(Window.FEATURE_NO_TITLE)
-    bsd.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-    bsd.setContentView(bindingBottom.root)
-    bsd.setCanceledOnTouchOutside(true)
-    bsd.setCancelable(true)
-    bsd.show()
-    val df = DecimalFormat("#.##")
-    df.setRoundingMode(RoundingMode.CEILING)
-    if(variation!!.currentBatch!=null) {
-        if(variation?.offer_available!!){
-            bindingBottom.varientWitoutDisPrice.visibility = View.VISIBLE
-            bindingBottom.discountTxt.visibility = View.VISIBLE
-
-            bindingBottom.varientName.text = binding.productNameTextView.text.toString()
-            bindingBottom.varientDisPrice.text =
-                binding.productDiscountedPriceTextView.text.toString();
-            bindingBottom.varientWitoutDisPrice.paintFlags =
-                bindingBottom.varientWitoutDisPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-            bindingBottom.varientWitoutDisPrice.text =
-                binding.productNetPriceTextView.text.toString();
-            if(savePrecentage<1){
-                bindingBottom.discountTxt.text = savePrecentage.toString() + "% OFF"
-
-            }else{
-                bindingBottom.discountTxt.text = Math.round(savePrecentage).toString() + "% OFF"
-
-            }
-        }else {
-            if (variation!!.currentBatch?.product_mrp == variation!!.currentBatch?.base_rate!!) {
-                bindingBottom.varientWitoutDisPrice.visibility = View.INVISIBLE
-                bindingBottom.discountTxt.visibility = View.INVISIBLE
-                bindingBottom.varientDisPrice.text =
-                    binding.productDiscountedPriceTextView.text.toString();
-
-            } else {
+        bsd = BottomSheetDialog(this)
+        bsd.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        bsd.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        bsd.setContentView(bindingBottom.root)
+        bsd.setCanceledOnTouchOutside(true)
+        bsd.setCancelable(true)
+        bsd.show()
+        val df = DecimalFormat("#.##")
+        df.setRoundingMode(RoundingMode.CEILING)
+        if (variation!!.currentBatch != null) {
+            if (variation?.offer_available!!) {
                 bindingBottom.varientWitoutDisPrice.visibility = View.VISIBLE
                 bindingBottom.discountTxt.visibility = View.VISIBLE
 
@@ -1212,39 +1241,69 @@ private fun openVarientSheet() {
                 bindingBottom.varientWitoutDisPrice.paintFlags =
                     bindingBottom.varientWitoutDisPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
                 bindingBottom.varientWitoutDisPrice.text =
-                    binding.productNetPriceTextView.text.toString()
-                if(savePrecentage<1){
+                    binding.productNetPriceTextView.text.toString();
+                if (savePrecentage < 1) {
                     bindingBottom.discountTxt.text = savePrecentage.toString() + "% OFF"
 
-                }else{
+                } else {
                     bindingBottom.discountTxt.text = Math.round(savePrecentage).toString() + "% OFF"
+
+                }
+            } else {
+                if (variation!!.currentBatch?.product_mrp == variation!!.currentBatch?.base_rate!!) {
+                    bindingBottom.varientWitoutDisPrice.visibility = View.INVISIBLE
+                    bindingBottom.discountTxt.visibility = View.INVISIBLE
+                    bindingBottom.varientDisPrice.text =
+                        binding.productDiscountedPriceTextView.text.toString();
+
+                } else {
+                    bindingBottom.varientWitoutDisPrice.visibility = View.VISIBLE
+                    bindingBottom.discountTxt.visibility = View.VISIBLE
+
+                    bindingBottom.varientName.text = binding.productNameTextView.text.toString()
+                    bindingBottom.varientDisPrice.text =
+                        binding.productDiscountedPriceTextView.text.toString();
+                    bindingBottom.varientWitoutDisPrice.paintFlags =
+                        bindingBottom.varientWitoutDisPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                    bindingBottom.varientWitoutDisPrice.text =
+                        binding.productNetPriceTextView.text.toString()
+                    if (savePrecentage < 1) {
+                        bindingBottom.discountTxt.text = savePrecentage.toString() + "% OFF"
+
+                    } else {
+                        bindingBottom.discountTxt.text =
+                            Math.round(savePrecentage).toString() + "% OFF"
+
+                    }
+                }
+            }
+        }
+        val subCategoriesLayoutManager = LinearLayoutManager(this)
+
+        subCategoriesLayoutManager.orientation = LinearLayoutManager.VERTICAL
+
+        bindingBottom.varientListview.layoutManager = subCategoriesLayoutManager
+
+        for (i in 0 until variantModelList!!.size) {
+            for (j in 0 until variantList!!.size) {
+                Log.e(
+                    "equal data",
+                    variantModelList!![i].name + "  " + variantList!![j].variation_name
+                )
+                if (variantModelList!![i].name == variantList!![j].variation_name) {
+                    variantModelList!![i].isSelectd = true;
+                    variantModelList!![i].selectdText = variantList!![j].variation_value;
+
 
                 }
             }
         }
-    }
-    val subCategoriesLayoutManager = LinearLayoutManager(this)
 
-    subCategoriesLayoutManager.orientation = LinearLayoutManager.VERTICAL
-
-    bindingBottom.varientListview.layoutManager = subCategoriesLayoutManager
-
-    for(i in 0 until variantModelList!!.size){
-        for(j in 0 until variantList!!.size){
-            Log.e("equal data",variantModelList!![i].name+"  "+variantList!![j].variation_name)
-            if(variantModelList!![i].name==variantList!![j].variation_name){
-                variantModelList!![i].isSelectd=true;
-                variantModelList!![i].selectdText=variantList!![j].variation_value;
-
-
-            }
-        }
+        var bottomAdapter = BottomVariationsAdapter(this, variantModelList, this)
+        bindingBottom.varientListview.adapter = bottomAdapter
+        onclick(bindingBottom)
     }
 
-    var bottomAdapter = BottomVariationsAdapter(this, variantModelList, this)
-    bindingBottom.varientListview.adapter = bottomAdapter
-    onclick(bindingBottom)
-}
     private fun onclick(binding: VarientBottomViewBinding) {
         binding.close.setOnClickListener {
             bsd.dismiss()
@@ -1254,7 +1313,7 @@ private fun openVarientSheet() {
 
         }
         binding.apply.setOnClickListener {
-            if(varientDetailResult!=null) {
+            if (varientDetailResult != null) {
                 onProductDetailDataFound(varientDetailResult, "")
                 bsd.dismiss()
             }
@@ -1268,14 +1327,14 @@ private fun openVarientSheet() {
         openVarientSheet()
     }
 
-    override fun onClickSubVarientItem(parentPos:Int,text: String, isSelected: Boolean) {
-        try{
-            variantList!![parentPos].variation_value=text
-            for(i in 0 until variantModelList!!.size){
-                for(j in 0 until variantList!!.size){
-                    if(variantModelList!![i].name==variantList!![j].variation_name){
-                        variantModelList!![i].isSelectd=true;
-                        variantModelList!![i].selectdText=variantList!![j].variation_value;
+    override fun onClickSubVarientItem(parentPos: Int, text: String, isSelected: Boolean) {
+        try {
+            variantList!![parentPos].variation_value = text
+            for (i in 0 until variantModelList!!.size) {
+                for (j in 0 until variantList!!.size) {
+                    if (variantModelList!![i].name == variantList!![j].variation_name) {
+                        variantModelList!![i].isSelectd = true;
+                        variantModelList!![i].selectdText = variantList!![j].variation_value;
 
 
                     }
@@ -1285,36 +1344,36 @@ private fun openVarientSheet() {
             var bottomAdapter = BottomVariationsAdapter(this, variantModelList, this)
             bindingBottom.varientListview.adapter = bottomAdapter
 
-            var obj:JSONObject= JSONObject()
-            obj.put("product_id",vId)
+            var obj: JSONObject = JSONObject()
+            obj.put("product_id", vId)
             val jsonArray = JSONArray()
             for (i in 0 until variantList!!.size) {
-                var objArr:JSONObject= JSONObject()
-                objArr.put("variation_value",variantList!![i].variation_value)
-                objArr.put("variation_name",variantList!![i].variation_name)
+                var objArr: JSONObject = JSONObject()
+                objArr.put("variation_value", variantList!![i].variation_value)
+                objArr.put("variation_name", variantList!![i].variation_name)
 
                 jsonArray.put(objArr)
             }
 
-            obj.put("variant",jsonArray)
+            obj.put("variant", jsonArray)
             myDialog.dialogShow()
 
             callApiDetails(obj)
-        }catch (e:java.lang.Exception){
+        } catch (e: java.lang.Exception) {
 
         }
 
     }
 
 
-    fun callApiDetails(obj:JSONObject){
-        val parser =  JsonParser();
+    fun callApiDetails(obj: JSONObject) {
+        val parser = JsonParser();
 
         val json = parser!!.parse(obj.toString()) as JsonObject;
-        Log.e("variant print",json.toString());
+        Log.e("variant print", json.toString());
         ApiClientGenerator
             .getClient()!!
-            .getVariants(json,ContextUtils.getAuthToken(applicationContext))
+            .getVariants(json, ContextUtils.getAuthToken(applicationContext))
             .enqueue(object : Callback<ApiResponse<ProductDetailResult>?> {
 
                 override fun onResponse(
@@ -1327,18 +1386,18 @@ private fun openVarientSheet() {
                         return
                     }
                     if (response.body() != null) {
-                        if (response.body()!!.status==1) {
-                            varientDetailResult=null
-                            varientDetailResult=response.body()!!.data
-                            if(response.body()!!.data!!.default_variant!!.currentBatch==null) {
+                        if (response.body()!!.status == 1) {
+                            varientDetailResult = null
+                            varientDetailResult = response.body()!!.data
+                            if (response.body()!!.data!!.default_variant!!.currentBatch == null) {
 
 
                                 bindingBottom.errorMessage.text = "Out of stock"
-                            }else {
+                            } else {
                                 val df = DecimalFormat("#.##")
                                 df.setRoundingMode(RoundingMode.CEILING)
-                                if(response.body()!!.data!!.default_variant!!.currentBatch!=null) {
-                                    if(response.body()!!.data!!.default_variant!!.offer_available!!){
+                                if (response.body()!!.data!!.default_variant!!.currentBatch != null) {
+                                    if (response.body()!!.data!!.default_variant!!.offer_available!!) {
                                         bindingBottom.varientWitoutDisPrice.visibility =
                                             View.VISIBLE
                                         bindingBottom.discountTxt.visibility = View.VISIBLE
@@ -1347,31 +1406,40 @@ private fun openVarientSheet() {
                                                     response.body()!!.data!!.default_variant!!.currentBatch!!.product_mrp!!.toDouble()) * 100
                                         bindingBottom.varientName.text =
                                             response.body()!!.data!!.default_variant!!.product_title
-                                        bindingBottom.varientDisPrice.text =resources.getText(R.string.us_dollar).toString()+Math.round(response.body()!!.data!!.default_variant!!.offer_discount_price!!).toString()
+                                        bindingBottom.varientDisPrice.text =
+                                            resources.getText(R.string.us_dollar)
+                                                .toString() + Math.round(response.body()!!.data!!.default_variant!!.offer_discount_price!!)
+                                                .toString()
                                         bindingBottom.varientWitoutDisPrice.paintFlags =
                                             bindingBottom.varientWitoutDisPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-                                        bindingBottom.varientWitoutDisPrice.text =resources.getText(R.string.us_dollar).toString()+Math.round(response.body()!!.data!!.default_variant!!.currentBatch!!.product_mrp!!).toString()
+                                        bindingBottom.varientWitoutDisPrice.text =
+                                            resources.getText(R.string.us_dollar)
+                                                .toString() + Math.round(response.body()!!.data!!.default_variant!!.currentBatch!!.product_mrp!!)
+                                                .toString()
                                         savePrecentage =
                                             AppUtil.roundTwoDecimalPlaces(
                                                 this@ProductDetailsActivity,
                                                 p
                                             )
 
-                                        if(savePrecentage<1){
+                                        if (savePrecentage < 1) {
                                             bindingBottom.discountTxt.text =
                                                 savePrecentage.toString() + "% OFF"
-                                        }else{
+                                        } else {
                                             bindingBottom.discountTxt.text =
                                                 Math.round(savePrecentage).toString() + "% OFF"
                                         }
 
 
-                                    }else {
+                                    } else {
                                         if (response.body()!!.data!!.default_variant!!.currentBatch!!.product_mrp == response.body()!!.data!!.default_variant!!.currentBatch?.base_rate!!) {
                                             bindingBottom.varientWitoutDisPrice.visibility =
                                                 View.INVISIBLE
                                             bindingBottom.discountTxt.visibility = View.INVISIBLE
-                                            bindingBottom.varientDisPrice.text =resources.getText(R.string.us_dollar).toString()+Math.round(response.body()!!.data!!.default_variant!!.currentBatch!!.base_rate!!).toString()
+                                            bindingBottom.varientDisPrice.text =
+                                                resources.getText(R.string.us_dollar)
+                                                    .toString() + Math.round(response.body()!!.data!!.default_variant!!.currentBatch!!.base_rate!!)
+                                                    .toString()
                                         } else {
                                             bindingBottom.varientWitoutDisPrice.visibility =
                                                 View.VISIBLE
@@ -1381,11 +1449,17 @@ private fun openVarientSheet() {
                                                         response.body()!!.data!!.default_variant!!.currentBatch!!.product_mrp!!.toDouble()) * 100
                                             bindingBottom.varientName.text =
                                                 response.body()!!.data!!.default_variant!!.product_title
-                                            bindingBottom.varientDisPrice.text =resources.getText(R.string.us_dollar).toString()+Math.round(response.body()!!.data!!.default_variant!!.offer_discount_price!!).toString()
+                                            bindingBottom.varientDisPrice.text =
+                                                resources.getText(R.string.us_dollar)
+                                                    .toString() + Math.round(response.body()!!.data!!.default_variant!!.offer_discount_price!!)
+                                                    .toString()
 
                                             bindingBottom.varientWitoutDisPrice.paintFlags =
                                                 bindingBottom.varientWitoutDisPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-                                            bindingBottom.varientWitoutDisPrice.text =resources.getText(R.string.us_dollar).toString()+Math.round(response.body()!!.data!!.default_variant!!.currentBatch!!.product_mrp!!).toString()
+                                            bindingBottom.varientWitoutDisPrice.text =
+                                                resources.getText(R.string.us_dollar)
+                                                    .toString() + Math.round(response.body()!!.data!!.default_variant!!.currentBatch!!.product_mrp!!)
+                                                    .toString()
 
                                             savePrecentage =
                                                 AppUtil.roundTwoDecimalPlaces(
@@ -1393,10 +1467,10 @@ private fun openVarientSheet() {
                                                     p
                                                 )
 
-                                            if(savePrecentage<1){
+                                            if (savePrecentage < 1) {
                                                 bindingBottom.discountTxt.text =
                                                     savePrecentage.toString() + "% OFF"
-                                            }else{
+                                            } else {
                                                 bindingBottom.discountTxt.text =
                                                     Math.round(savePrecentage).toString() + "% OFF"
                                             }
@@ -1409,12 +1483,12 @@ private fun openVarientSheet() {
                             }
 
                         } else {
-                            errorMessage=response.body()!!.message
-                            bindingBottom.errorMessage.text=errorMessage
+                            errorMessage = response.body()!!.message
+                            bindingBottom.errorMessage.text = errorMessage
                         }
                     } else {
-                        errorMessage=response.body()!!.message
-                        bindingBottom.errorMessage.text=errorMessage
+                        errorMessage = response.body()!!.message
+                        bindingBottom.errorMessage.text = errorMessage
 
 
                     }
@@ -1466,11 +1540,14 @@ private fun openVarientSheet() {
             this, lp
         ) { url, error ->
             if (error == null) {
-                AppUtil.firebaseEvent(applicationContext,"name","share",productName)
+                AppUtil.firebaseEvent(applicationContext, "name", "share", productName)
 
                 val i = Intent(Intent.ACTION_SEND)
                 i.type = "text/plain"
-                i.putExtra(Intent.EXTRA_SUBJECT, "I loved these gadgets collections on Gadgetmart and hope you too will \uD83D\uDE0A Check it out!")
+                i.putExtra(
+                    Intent.EXTRA_SUBJECT,
+                    "I loved these gadgets collections on Gadgetmart and hope you too will \uD83D\uDE0A Check it out!"
+                )
                 i.putExtra(Intent.EXTRA_TEXT, url)
                 startActivity(Intent.createChooser(i, "Share URL"))
                 Log.i("BRANCH SDK", "got my Branch link to share: $url")

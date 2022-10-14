@@ -59,6 +59,8 @@ class DashboardFragment : BaseFragment<DashboardFragmentBinding>(),
     lateinit var global:Global
 
     private var dashboardPresenter: DashboardPresenter? = null
+//    private var clearFromRecents: Serdkfd? = null
+//    private var clearRecentsBinder: Serdkfd.LocalBinder? = null
 
     fun newInstance(): DashboardFragment {
         val fragment =
@@ -69,6 +71,8 @@ class DashboardFragment : BaseFragment<DashboardFragmentBinding>(),
 
         return fragment
     }
+
+
 
     override fun getContentView(): Int {
         return R.layout.dashboard_fragment
@@ -81,7 +85,6 @@ class DashboardFragment : BaseFragment<DashboardFragmentBinding>(),
         dealsImages = ArrayList()
         initRecyclerViewAndAdapter(binding)
     }
-
 
     private fun initRecyclerViewAndAdapter(binding: DashboardFragmentBinding) {
         // Categories
@@ -97,7 +100,7 @@ class DashboardFragment : BaseFragment<DashboardFragmentBinding>(),
         sectionsLayoutManager.orientation = LinearLayoutManager.VERTICAL
         binding.sectionsRecyclerView.layoutManager = sectionsLayoutManager
 
-        sectionsAdapter = HomeDataAdapter(context!!, ArrayList(), this,timer)
+        sectionsAdapter = HomeDataAdapter(context!!, ArrayList(), this, timer)
         binding.sectionsRecyclerView.adapter = sectionsAdapter
         checkPermissions()
 
@@ -111,8 +114,8 @@ class DashboardFragment : BaseFragment<DashboardFragmentBinding>(),
      dashboardPresenter =
          DashboardPresenter(activity!!, this@DashboardFragment)
      dashboardPresenter!!.getDashboardData(
-         ContextUtils.getAuthToken(context),
-         firstTimeDialog
+             ContextUtils.getAuthToken(context),
+             firstTimeDialog
      )
  }
 
@@ -158,8 +161,8 @@ class DashboardFragment : BaseFragment<DashboardFragmentBinding>(),
             .enqueue(object : Callback<ResponseBody> {
 
                 override fun onResponse(
-                    call: Call<ResponseBody>,
-                    response: Response<ResponseBody>
+                        call: Call<ResponseBody>,
+                        response: Response<ResponseBody>
                 ) {
                     try {
                         val jsonObject = JSONObject(response.body()?.string()!!)
@@ -175,10 +178,10 @@ class DashboardFragment : BaseFragment<DashboardFragmentBinding>(),
                         }
                         //addLayoutFromArray(dashboardViews)
                         dashboardPresenter =
-                            DashboardPresenter(activity!!, this@DashboardFragment)
+                                DashboardPresenter(activity!!, this@DashboardFragment)
                         dashboardPresenter!!.getDashboardData(
-                            ContextUtils.getAuthToken(context),
-                            firstTimeDialog
+                                ContextUtils.getAuthToken(context),
+                                firstTimeDialog
                         )
 
                     } catch (e: Exception) {
@@ -188,8 +191,8 @@ class DashboardFragment : BaseFragment<DashboardFragmentBinding>(),
                 }
 
                 override fun onFailure(
-                    call: Call<ResponseBody>,
-                    t: Throwable
+                        call: Call<ResponseBody>,
+                        t: Throwable
                 ) {
 //                    dismissDialog()
 
@@ -218,9 +221,9 @@ class DashboardFragment : BaseFragment<DashboardFragmentBinding>(),
         }
 
         binding.swipeToRefresh?.setColorSchemeColors(
-            Color.rgb(255, 93, 94),
-            Color.GREEN,
-            Color.BLUE
+                Color.rgb(255, 93, 94),
+                Color.GREEN,
+                Color.BLUE
         )
     }
 
@@ -234,7 +237,7 @@ class DashboardFragment : BaseFragment<DashboardFragmentBinding>(),
         if (dashboardResult.cartCount != null && dashboardResult.cartCount != "0") {
             (activity as HomeActivity).toolbar.toolbar_cart_item_count.text = dashboardResult.cartCount
             (activity as HomeActivity).toolbar.toolbar_cart_item_count.visibility = View.VISIBLE
-            Log.e("user name", PreferenceManager().getInstance(activity).getUserName()!!)
+           // Log.e("user name", PreferenceManager().getInstance(activity).getUserName()!!)
             global.notificationSchdule(activity!!, PreferenceManager().getInstance(activity).getUserName()!!)
         } else {
             (activity as HomeActivity).toolbar.toolbar_cart_item_count.visibility = View.GONE
@@ -275,7 +278,7 @@ p=i;
         }
 
         categoryAdapter!!.updateList(dashboardResult.categories)
-        sectionsAdapter!!.updateList(dashboardResult.sections,timer)
+        sectionsAdapter!!.updateList(dashboardResult.sections, timer)
 
 
         if(global.productID.equals("")){
@@ -311,7 +314,7 @@ p=i;
 
 
     override fun onDashboardDataNotFound(message: String) {
-        AppUtil.firebaseEvent(activity!!,"error","error_events",message)
+        AppUtil.firebaseEvent(activity!!, "error", "error_events", message)
 
 //        showToast(message)
         binding?.swipeToRefresh?.isRefreshing = false
@@ -319,8 +322,8 @@ p=i;
         Log.e("DashBoardError ::: ", "" + message)
     }
 
-    override fun onAdapterItemTapped(adapterItem: String?, categoryName: String?,variationId:String?) {
-        Log.e("adapter item",adapterItem);
+    override fun onAdapterItemTapped(adapterItem: String?, categoryName: String?, variationId: String?) {
+        Log.e("adapter item", adapterItem);
 //        showToast(adapterItem.toString())
         val intent = Intent(activity, ProductDetailsActivity::class.java)
         intent.putExtra("productId", adapterItem.toString())
@@ -335,7 +338,7 @@ p=i;
     }
 
     override fun onAdapterItemCategoryTapped(adapterItem: String?, categoryName: String?) {
-        AppUtil.firebaseEvent(activity!!,"name","category",categoryName!!)
+        AppUtil.firebaseEvent(activity!!, "name", "category", categoryName!!)
 
         AccessoriesActivity.start(activity, adapterItem.toString(), categoryName!!)
 
@@ -569,8 +572,8 @@ p=i;
             })
             .setDeniedMessage("If you reject permission,you can not use this service\nPlease turn on permissions at [Setting] > [Permission]")
             .setPermissions(
-                Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.ACCESS_COARSE_LOCATION
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
             )
             .check()
     }

@@ -102,7 +102,19 @@ class CouponActivity : BaseActivity<CouponLayoutBinding>() {
 
 
                         } else {
-                            message(binding, response.getString("message"));
+                            if (response.getString("message")!=null) {
+                                if (response.getString("message").isNotEmpty()) {
+                                    if (response.getString("message").equals("null")){
+                                        message(binding, "Invalid promo code")
+                                    }else {
+                                        message(binding, response.getString("message"))
+                                    }
+                                }else{
+                                    message(binding,"Invalid promo code")
+                                }
+                            }else{
+                                message(binding,"Invalid promo code")
+                            }
                             AppUtil.firebaseEvent(applicationContext,"error","error_events",response.getString("message")
                             )
                         }

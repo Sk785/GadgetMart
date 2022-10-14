@@ -90,22 +90,23 @@ class EditProfileActivity : BaseActivity<EditProfileActivityBinding>(),
                 R.color.black
             )
         )
-binding.countryCodeEditText.isEnabled=false
-        binding.phoneNumberEditText.isFocusable=false
-
-
+        binding.countryCodeEditText.isEnabled = true
+        binding.phoneNumberEditText.isFocusable = false
         binding.nameEditText.setText(PreferenceManager().getInstance(this).getUserName())
         binding.emailIdEditText.setText(PreferenceManager().getInstance(this).getUserEmail())
         binding.phoneNumberEditText.setText(PreferenceManager().getInstance(this).getUserPhone())
         if (PreferenceManager().getInstance(this).getUserCountryCode().equals("")) {
         } else {
-            binding.countryCodeEditText.setText(PreferenceManager().getInstance(this).getUserCountryCode())
+            binding.countryCodeEditText.setText(
+                PreferenceManager().getInstance(this).getUserCountryCode()
+            )
 
         }
         bucketImagePath = PreferenceManager().getInstance(this).getProfileImage()
         countryName = PreferenceManager().getInstance(this).getCountryName()
         binding.nationalityet.setText(countryName)
-        if (PreferenceManager().getInstance(this).getProfileImage() != null && PreferenceManager().getInstance(
+        if (PreferenceManager().getInstance(this)
+                .getProfileImage() != null && PreferenceManager().getInstance(
                 this
             ).getProfileImage()!!.isNotEmpty()
         ) {
@@ -126,8 +127,7 @@ binding.countryCodeEditText.isEnabled=false
         if (gender.equals("male") || gender.equals("")) {
             binding.gendergroup.check(R.id.maleradio)
             gender = "male"
-        }
-        else {
+        } else {
             gender = "female"
 
             binding.gendergroup.check(R.id.femaleradio)
@@ -151,15 +151,24 @@ binding.countryCodeEditText.isEnabled=false
                     .setPhoneNumber(binding.phoneNumberEditText?.text.toString())
                     .setUserCountry(countryName)
                     .setProfilePhoto(bucketImagePath)
-                    .setGender(gender),isUpload
+                    .setGender(gender), isUpload
             )
 
         }
 
         binding.countryCodeEditText.setOnClickListener {
-            binding.ccpCountryCode?.launchCountrySelectionDialog(
-                countryCode
-            )
+//            binding.ccpCountryCode?.launchCountrySelectionDialog(
+//                countryCode
+//            )
+
+            val intent = Intent(applicationContext, RegisterSetupActivity::class.java)
+            intent.putExtra("name", "")
+            intent.putExtra("type1", "0")
+            intent.putExtra(Constants.email, "")
+            intent.putExtra(Constants.socialId, "")
+            intent.putExtra(Constants.type, "")
+            intent.putExtra("isLogin", "no")
+            startActivityForResult(intent, 104)
         }
 
         binding.ccpCountryCode?.setOnCountryChangeListener {
@@ -196,8 +205,8 @@ binding.countryCodeEditText.isEnabled=false
             intent.putExtra(Constants.type, "")
             intent.putExtra("isLogin", "no")
 
-            startActivityForResult(intent,104)        }
-
+            startActivityForResult(intent, 104)
+        }
 
 
 //            if (PreferenceManager().getInstance(this).getUserEmail().equals("")) {
@@ -281,13 +290,13 @@ binding.countryCodeEditText.isEnabled=false
                 val photo: Bitmap = data!!.extras!!.get("data") as Bitmap
                 val selectedImage = AppValidationUtil.getImageUri(this, photo)
                 CropImage.activity(selectedImage)
-                    .start(this);
+                    .start(this)
 
             }
             GALLERY -> if (resultCode == Activity.RESULT_OK) {
                 val selectedImage: Uri? = data!!.data
                 CropImage.activity(selectedImage)
-                    .start(this);
+                    .start(this)
 
 //                realPath = selectedImage?.let { AppValidationUtil.getRealPathFromURI(it, this) }
 //
@@ -314,19 +323,19 @@ binding.countryCodeEditText.isEnabled=false
                 if (resultCode == Activity.RESULT_OK) {
                     val result = CropImage.getActivityResult(data)
                     val resultUri = result.uri
-                    Log.e("########uri",resultUri.toString())
-              //  val photo: Bitmap = data!!.extras!!.get("data") as Bitmap
-               // val selectedImage = AppValidationUtil.getImageUri(this, photo)
-                realPath = AppValidationUtil.getFilePath(this,resultUri)
+                    Log.e("########uri", resultUri.toString())
+                    //  val photo: Bitmap = data!!.extras!!.get("data") as Bitmap
+                    // val selectedImage = AppValidationUtil.getImageUri(this, photo)
+                    realPath = AppValidationUtil.getFilePath(this, resultUri)
 
-                Log.e("ImageRealPath : ", "" + realPath)
-                if (realPath == null) {
-                    showToast("Invalid image")
-                }
-                val timeInMillis = System.currentTimeMillis().toString()
-                    isUpload=true;
-                val file = File(realPath!!)
-                    bucketImagePath=realPath
+                    Log.e("ImageRealPath : ", "" + realPath)
+                    if (realPath == null) {
+                        showToast("Invalid image")
+                    }
+                    val timeInMillis = System.currentTimeMillis().toString()
+                    isUpload = true;
+                    val file = File(realPath!!)
+                    bucketImagePath = realPath
                     binding.profilePicImageView.setImageURI(resultUri)
 //                AwsBucketApi.uploadImageToBucket(
 //                    this,
@@ -336,12 +345,12 @@ binding.countryCodeEditText.isEnabled=false
 //                )
 
 
+                }
+
+            104 -> if (resultCode == Activity.RESULT_OK) {
+                binding.phoneNumberEditText.setText(data!!.extras!!.getString("phone"))
+
             }
-
-104 ->if (resultCode == Activity.RESULT_OK){
-    binding.phoneNumberEditText.setText(data!!.extras!!.getString("phone"))
-
-}
         }
     }
 
@@ -373,8 +382,8 @@ binding.countryCodeEditText.isEnabled=false
     }
 
     override fun onProfileUpdated(result: AuthResult?, message: String) {
-        isUpload=false;
-        Log.e("result edit",Gson().toJson(result))
+        isUpload = false;
+        Log.e("result edit", Gson().toJson(result))
         PreferenceManager().getInstance(this).setProfileImage(result?.getPhoto())
         PreferenceManager().getInstance(this).setUserCountry(result?.getCountry())
         PreferenceManager().getInstance(this).setUserCountryCode(result?.getCountryCode())
@@ -391,7 +400,8 @@ binding.countryCodeEditText.isEnabled=false
     }
 
     override fun onProfileUpdationFailed(message: String) {
-        AppUtil.firebaseEvent(applicationContext,"error","error_events",message
+        AppUtil.firebaseEvent(
+            applicationContext, "error", "error_events", message
         )
         showToast(message)
         Log.e("Profile Failed :::: ", "" + message)
@@ -417,7 +427,7 @@ binding.countryCodeEditText.isEnabled=false
 
     }
 
-    private fun performCrop(picUri:Uri) {
+    private fun performCrop(picUri: Uri) {
         // take care of exceptions
         try {
             // call the standard crop action intent (the user device may not

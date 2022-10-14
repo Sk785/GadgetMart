@@ -50,6 +50,7 @@ class SplashActivity : BaseActivity<SplashActivityBinding>() {
         handler = Handler()
         handler!!.postDelayed(runnable, timeDelay)
         global=applicationContext as Global
+     //   global.cancelNotification(this)
     }
 
     override fun onDestroy() {

@@ -8,6 +8,7 @@ data class CheckOutDataModel(
 
     @SerializedName("address_id") val address_id: String,
     @SerializedName("payment_type") val payment_type: String,
+    @SerializedName("platform_type") val platform_type: String,
     @SerializedName("bag_amount") val bag_amount: String,
     @SerializedName("discount") val discount: String,
     @SerializedName("coupon_code") val coupon_code: String,

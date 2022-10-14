@@ -13,7 +13,6 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.gadgetmart.R
 import com.gadgetmart.ui.cart_bag.CartInterface
-import com.gadgetmart.ui.cart_bag.model.MyCart
 import com.gadgetmart.ui.category.ProductVariation
 import com.gadgetmart.ui.support.TermsAndCondtions
 import kotlinx.android.synthetic.main.cart_list_item.view.*
@@ -26,7 +25,6 @@ var cartListing: ProductVariation,
 var callback: CartInterface,var count:Int
 ) :
 RecyclerView.Adapter<CheckOutDirectAdapter.ViewHolder>() {
-
 
     //this method is returning the view for each item in the list
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -154,18 +152,15 @@ RecyclerView.Adapter<CheckOutDirectAdapter.ViewHolder>() {
             updateCartCountLayout.increase_count_image_view.setOnClickListener {
                 if(cartListing!!.currentBatch!=null) {
                     if ((updateCartCountLayout.quantity_text_view.text.toString())
-                        == cartListing!!.currentBatch!!.quantity!!
-                    ) {
+                        == cartListing!!.currentBatch!!.quantity!!) {
                         Toast.makeText(context, "Out of stock product", Toast.LENGTH_SHORT).show()
                     } else {
-
                         callback.addMoreProduct(
                             position,
                             cartListing?.variationId!!,
                             cartListing?.currentBatch!!.base_rate.toString(),
                             count
                         )
-
                     }
                 }else{
                     Toast.makeText(context, "Out of stock product", Toast.LENGTH_SHORT).show()

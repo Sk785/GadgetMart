@@ -84,10 +84,9 @@ class MyAddressesActivity : BaseActivity<MyAddressesActivityBinding>(), MyAddres
 
         binding.noAddressLayout?.btnfinish?.setOnClickListener {
             startActivityForResult(
-                Intent(this, AddNewAddressActivity::class.java).putExtra(
-                    "type",
-                    "new"
-                ), ADDRESS_SAVED
+                Intent(this, AddNewAddressActivity::class.java)
+                    .putExtra("type", "new"),
+                ADDRESS_SAVED
             )
         }
 
@@ -193,6 +192,7 @@ class MyAddressesActivity : BaseActivity<MyAddressesActivityBinding>(), MyAddres
                         intent.putExtra("phone_number", myAddresses[i].phone)
                         intent.putExtra("zipcode", myAddresses[i].zip)
                         intent.putExtra("address_type", myAddresses[i].addressType)
+                        intent.putExtra("country_code", myAddresses[i].country_code)
                         intent.putExtra("type", "edit")
                         startActivityForResult(intent, ADDRESS_SAVED)
                         break

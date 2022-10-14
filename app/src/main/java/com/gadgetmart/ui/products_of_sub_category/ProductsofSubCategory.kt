@@ -709,9 +709,7 @@ class ProductsofSubCategory : BaseActivity<ActivityProductsofSubCategoryBinding>
                     ) {
                         myDialog.dialogDismiss()
                         if (response.body()!!.status == 1) {
-                            showToast(response.body()!!.message)
-
-
+                            showToast("Product has been added to bag")
                                 cartCount=cartCount+1
                                 binding().toolbarID.toolbarCartItemCount.text =cartCount.toString()
                                 binding().toolbarID.toolbarCartItemCount.visibility = View.VISIBLE

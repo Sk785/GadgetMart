@@ -86,10 +86,11 @@ class CheckoutActivity_Direct : BaseActivity<ActivityCheckoutBinding>(), CartInt
     var businessname = ""
     private lateinit var bsd: BottomSheetDialog
     private var variations: ProductVariation? = null
-    var cartCount = 1
+    var cartCount :Int= 1
     var orderId = ""
     var weight = 0.0f
     var isShipingFree=false;
+    var quantity:String?=null
 
 
     var pincode=""
@@ -103,6 +104,27 @@ class CheckoutActivity_Direct : BaseActivity<ActivityCheckoutBinding>(), CartInt
         binding.toolbar.toolbar_cart_icon.visibility = View.GONE
         binding.toolbar.toolbar_title_text_view.text = "Checkout"
         getIntentData()
+        if (variations!=null){
+            if (variations!!.cart!=null){
+                if (variations!!.cart!!.quantity!!>0){
+                    cartCount=variations?.cart?.quantity!!
+                }else{
+                    if (quantity!=null){
+                        cartCount=quantity!!.toInt()
+                    }
+                }
+            }else{
+                if (quantity!=null){
+                    cartCount=quantity!!.toInt()
+                }
+            }
+        }else{
+            if (quantity!=null){
+                cartCount=quantity!!.toInt()
+            }
+        }
+
+
         addData()
         setListeners(binding)
         myDialog = CustomProgressDialog(this)
@@ -120,6 +142,7 @@ class CheckoutActivity_Direct : BaseActivity<ActivityCheckoutBinding>(), CartInt
     private fun getIntentData() {
         if (intent.extras != null) {
             variations = intent.extras!!.getParcelable("variations")
+            quantity = intent.extras!!.getString("quantity")
         }
     }
 
@@ -184,10 +207,30 @@ class CheckoutActivity_Direct : BaseActivity<ActivityCheckoutBinding>(), CartInt
                     showToast("No address selected")
                 } else {
                     myDialog.dialogShow()
-                    placeOrderApi()
+                    placeOrderApi("PG")
                 }
             }
         }
+
+        cash_on_delivery.setOnClickListener {
+                if (PreferenceManager().getInstance(this).getUserEmail().equals("")) {
+                    editValid("Please edit email in profile section")
+                    // showToast("Please add your email in edit profile section")
+                } else if (PreferenceManager().getInstance(this).getUserPhone().equals("")) {
+                    editValid("Please edit phone number in profile section")
+                } else {
+                    if (addressId == "") {
+                        showToast("No address selected")
+                    } else {
+                        AppUtil.firebaseEvent(applicationContext, "", "go_to_checkout", "")
+
+                        myDialog.dialogShow()
+                        placeOrderApi("COD")
+                    }
+            }
+        }
+
+
         changeaddress_txt.setOnClickListener {
             val intent = Intent(applicationContext, MyAddressesActivity::class.java)
             intent.putExtra("type", "change address")
@@ -395,7 +438,6 @@ class CheckoutActivity_Direct : BaseActivity<ActivityCheckoutBinding>(), CartInt
 
     fun setBuyData() {
         var isOffer = false
-
         if (variations!!.offer_available!!) {
             variations?.currentBatch!!.base_rate = variations?.offer_discount_price
 
@@ -1070,13 +1112,14 @@ isShipingFree=true
             })
     }
 
-    fun placeOrderApi() {
+    fun placeOrderApi(paymentType:String) {
 
 
         val obj = JSONObject()
         val arr = JSONArray()
         obj.put(Constants.address_id, addressId)
-        obj.put(Constants.payment_type, "PG")
+        obj.put(Constants.payment_type, paymentType)
+        obj.put(Constants.platform_type, "Android")
         obj.put(Constants.bag_amount, "" + total)
         obj.put(Constants.discount, taxCharges)
 //        obj.put(Constants.coupon_code, "" + couponID)
@@ -1087,7 +1130,6 @@ isShipingFree=true
         if (gstinNumber.toString().length > 0) {
             obj.put("gst_no", gstinNumber)
             obj.put("gst_name", businessname)
-
         }
 
         obj.put(Constants.delivery_charges,binding.deliveryAmount.text.toString().replace("\u20B9", "") )
@@ -1100,7 +1142,6 @@ isShipingFree=true
             obj2.put(Constants.offer_id, variations?.offers!![0].id)
         } else {
             obj2.put(Constants.offer_id, "")
-
         }
 
 
@@ -1108,6 +1149,7 @@ isShipingFree=true
 
         obj.put(Constants.products, arr)
         Log.e("obj", obj.toString())
+        Log.e("Tokennnn", ContextUtils.getAuthToken(this))
 
         val model = Gson().fromJson(obj.toString(), CheckOutDataModel::class.java)
         ApiClientGenerator
@@ -1134,7 +1176,14 @@ isShipingFree=true
                         order_number = response.body()?.data!!.order_number
 
                         Log.e("order_id", orderId)
-                        startPayment(order)
+                        if(paymentType=="COD"){
+                            OrderConfirmationActivity.start(
+                                this@CheckoutActivity_Direct,
+                                order_number
+                            )
+                        }else{
+                            startPayment(order)
+                        }
 
                         // finish()
                     } else {

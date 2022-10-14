@@ -130,7 +130,7 @@
         android:paddingTop="@dimen/_4sdp"
         android:paddingEnd="@dimen/_8sdp"
         android:paddingBottom="@dimen/_4sdp"
-        android:text="Add to cart"
+        android:text="Add to bag"
         android:textColor="@color/white"
         android:textSize="@dimen/_10ssp"
         app:layout_constraintEnd_toEndOf="parent"

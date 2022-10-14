@@ -166,7 +166,8 @@ class MyWishListActivity : BaseActivity<ActivityMyWishListBinding>() , WishListC
                     ) {
                         myDialog.dialogDismiss()
                         if (response.body()!!.status == 1) {
-                            showToast(response.body()!!.message)
+                           // showToast(response.body()!!.message)
+                            showToast("Product has been added to bag")
                             initPresenter()
                         } else {
                             AppUtil.firebaseEvent(applicationContext,"error","error_events",response.body()!!.message

@@ -117,10 +117,10 @@ class RegisterSetupActivity : BaseActivity<ActivityRegisterSetupBinding>() {
         super.onActivityResult(requestCode, resultCode, data)
         for (fragment in supportFragmentManager.fragments) {
             fragment.onActivityResult(requestCode, resultCode, data)
-            var i=Intent()
-            i.putExtra("phone",data!!.extras!!.getString("phone"))
-            setResult(Activity.RESULT_OK,i)
-            finish()
+//            var i=Intent()
+//            i.putExtra("phone",data!!.extras!!.getString("phone"))
+//            setResult(Activity.RESULT_OK,i)
+//            finish()
         }
     }
 }

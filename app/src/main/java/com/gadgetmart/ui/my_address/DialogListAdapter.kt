@@ -31,6 +31,11 @@ class DialogListAdapter(
             countries.let { it!!.size }
     }
 
+    fun notifyList(countries: ArrayList<Country>){
+        this.countries=countries
+        notifyDataSetChanged()
+    }
+
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         holder.bindView(countries!![position], adapterListener)
     }

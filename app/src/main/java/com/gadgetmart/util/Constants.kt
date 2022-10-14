@@ -9,6 +9,7 @@ class Constants {
         const val phoneNumber = "phoneNumber"
         const val address_id = "address_id"
         const val payment_type = "payment_type"
+        const val platform_type = "platform_type"
         const val bag_amount = "bag_amount"
         const val tax = "tax"
         const val coupon_code = "coupon_code"

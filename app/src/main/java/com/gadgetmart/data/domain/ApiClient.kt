@@ -256,7 +256,18 @@ interface ApiClient {
     @POST("sendOTP")
     fun sendOTP(
         @Field("phone") variationId: String,
-        @Field("type") type: String
+        @Field("type") type: String,
+        @Field("country_code") countryCode:String
+
+    ): Call<ResponseBody?>
+
+    @FormUrlEncoded
+    @POST("sendOTP")
+    fun resendOTP(
+        @Field("phone") variationId: String,
+        @Field("type") type: String,
+        @Field("isResend") isResend: String,
+        @Field("country_code") countryCode:String
 
     ): Call<ResponseBody?>
 
@@ -437,7 +448,6 @@ interface ApiClient {
     @POST("removeReview")
     fun removeReview(
         @Field("review_id") review_id: String,
-
         @Header("Authorization") authToken: String
     ): Call<ResponseBody?>
 
@@ -448,7 +458,6 @@ interface ApiClient {
         @Part("order_product_id") order_product_id : RequestBody ,
         @Part("cancel_reason") cancel_reason : RequestBody,
         @Part file:ArrayList<MultipartBody.Part>?,
-
         @Header("Authorization") authToken: String
 
     ):Call<ResponseBody?>
@@ -459,8 +468,6 @@ interface ApiClient {
         @Part file:ArrayList<MultipartBody.Part>?,
         @Part("cancel_reason") cancel_reason:RequestBody,
         @Part("order_id")order_id: RequestBody,
-
-
         @Header("Authorization") authToken: String
 
     ):Call<ResponseBody?>
@@ -471,11 +478,8 @@ interface ApiClient {
         @Part("order_id") orderId : RequestBody ,
         @Part("order_product_id") order_product_id : RequestBody ,
         @Part("request_type") request_type : RequestBody ,
-
         @Part("reason") reason : RequestBody,
         @Part file:ArrayList<MultipartBody.Part>?,
-
-
         @Header("Authorization") authToken: String
 
     ):Call<ResponseBody?>

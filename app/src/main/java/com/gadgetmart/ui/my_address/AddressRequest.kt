@@ -63,10 +63,26 @@ class AddressRequest {
     @Expose
     private var longitude: String? = null
 
+    @SerializedName("country_code")
+    @Expose
+    private var countryCode: String? = null
+
 
     /*
      * Getters and Setters
      */
+
+
+    fun getCountryCode(): String? {
+        return countryCode
+    }
+
+    fun setCountryCode(countryCode: String?): AddressRequest {
+        this.countryCode = countryCode
+        return this
+    }
+
+
     fun getName(): String? {
         return name
     }

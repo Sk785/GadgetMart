@@ -1,6 +1,5 @@
 package com.gadgetmart.ui.CustomNotifications
 
-
 import android.annotation.SuppressLint
 import android.app.*
 import android.content.Context
@@ -12,17 +11,15 @@ import android.os.Build
 import java.util.*
 import android.app.NotificationChannel
 import com.gadgetmart.R
-import com.gadgetmart.ui.splash.SplashActivity
 
 
 class NotificationService : IntentService("NotificationService") {
     private lateinit var mNotification: Notification
     private val mNotificationId: Long = System.currentTimeMillis()
 
+
     @SuppressLint("NewApi")
     private fun createChannel() {
-
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
             // Create the NotificationChannel, but only on API 26+ because
@@ -30,7 +27,6 @@ class NotificationService : IntentService("NotificationService") {
 
             val context = this.applicationContext
             val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
             val importance = NotificationManager.IMPORTANCE_HIGH
             val notificationChannel = NotificationChannel(CHANNEL_ID, CHANNEL_NAME, importance)
             notificationChannel.enableVibration(true)
@@ -41,11 +37,9 @@ class NotificationService : IntentService("NotificationService") {
             notificationChannel.lockscreenVisibility = Notification.VISIBILITY_PUBLIC
             notificationManager.createNotificationChannel(notificationChannel)
         }
-
     }
 
     companion object {
-
         const val CHANNEL_ID = "samples.notification.devdeeds.com.CHANNEL_ID"
         const val CHANNEL_NAME = "Sample Notification"
     }
@@ -55,27 +49,19 @@ class NotificationService : IntentService("NotificationService") {
 
         //Create Channel
         createChannel()
-
-
         var timestamp: Long = 0
-        var name=""
+        var name= ""
         if (intent != null && intent.extras != null) {
             timestamp = intent.extras!!.getLong("timestamp")
             name = intent.extras!!.getString("name").toString()
-
         }
 
-
-
-
         if (timestamp > 0) {
-
-
             val context = this.applicationContext
             var notificationManager: NotificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             val notifyIntent = Intent()
 
-            val title = "Don't we the one who missed out!"
+            val title = "Don’t be the one who missed out"
             val message = "Hey "+name+" ,still interested in product you put in your cart. Buy the product before you lose it!"
 
             notifyIntent.putExtra("title", title)
@@ -94,7 +80,6 @@ class NotificationService : IntentService("NotificationService") {
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
-
                 mNotification = Notification.Builder(this, CHANNEL_ID)
                         // Set the intent that will fire when the user taps the notification
                         .setContentIntent(pendingIntent)
@@ -106,7 +91,6 @@ class NotificationService : IntentService("NotificationService") {
                                 .bigText(message))
                         .setContentText(message).build()
             } else {
-
                 mNotification = Notification.Builder(this)
                         // Set the intent that will fire when the user taps the notification
                         .setContentIntent(pendingIntent)
@@ -121,13 +105,12 @@ class NotificationService : IntentService("NotificationService") {
                         .setContentText(message).build()
 
             }
-
-
-
             notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             // mNotificationId is a unique int for each notification that you must define
             notificationManager.notify(mNotificationId.toInt(), mNotification)
         }
+
+
 
 
     }

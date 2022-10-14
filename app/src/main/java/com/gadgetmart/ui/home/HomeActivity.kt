@@ -20,6 +20,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.bumptech.glide.Glide
 import com.facebook.login.LoginManager
 import com.gadgetmart.R
+import com.gadgetmart.app.Global
 import com.gadgetmart.base.BaseActivity
 import com.gadgetmart.data.domain.ApiClientGenerator
 import com.gadgetmart.databinding.HomeActivityBinding
@@ -55,7 +56,7 @@ class HomeActivity : BaseActivity<HomeActivityBinding>(), ProfileContract {
     private lateinit var headerBinding: HomeNavDrawerHeaderBinding
     private var actionbarToggle: ActionBarDrawerToggle? = null
     private var profilePresenter: ProfilePresenter? = null
-
+    lateinit var global: Global
     /*  private var mMenuAdapter: MenuAdapter? = null
       private var mViewHolder: ViewHolder? = null*/
     var seetingModel: SettingModel? = null
@@ -73,6 +74,7 @@ class HomeActivity : BaseActivity<HomeActivityBinding>(), ProfileContract {
             addToBackStack = true,
             shouldAnimateTransition = true
         )
+        global = applicationContext as Global
 
         setSupportActionBar(binding.toolbar)
 
@@ -350,13 +352,13 @@ if(PreferenceManager().getInstance(this).getAuthToken().equals("")){
 
             } else {
                 val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build()
-
                 val googleSignInClient = GoogleSignIn.getClient(this@HomeActivity, gso)
                 googleSignInClient.signOut()
                 LoginManager.getInstance().logOut()
 
             }
             PreferenceManager().getInstance(this).clearUserData()
+            global.cancelNotification(this.applicationContext)
             updateDrawerMenu(binding)
             WelcomeActivity.start(this@HomeActivity)
             // val intent = Intent(applicationContext, WelcomeActivity::class.java)
@@ -384,13 +386,11 @@ if(PreferenceManager().getInstance(this).getAuthToken().equals("")){
     }
 
     companion object {
-
         fun start(context: Context?) {
             val intent = Intent(context, HomeActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
             context!!.startActivity(intent)
         }
-
     }
 
     override fun onBackPressed() {

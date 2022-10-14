@@ -28,19 +28,14 @@ import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-
-
 class OtpVerificationFragment : BaseFragment<OtpVerificationFragmentBinding>(),
     PhoneVerificationContract {
 
-    //    private var type = ""
     private var otpNumber = ""
     private var countryCode = ""
     private var phoneNumber = ""
     private var controller: RingcaptchaAPIController? = null
     private var phoneVerificationPresenter: PhoneVerificationPresenter? = null
-    private val intentExtraCountryCode = "extra_country_code"
-    private val intentExtraPhoneNumber = "extra_phone_number"
     private var timer: CountDownTimer? = null
     private var customProgressDialog: CustomProgressDialog? = null
     private var email = ""
@@ -49,10 +44,9 @@ class OtpVerificationFragment : BaseFragment<OtpVerificationFragmentBinding>(),
     private var name = ""
     private var type = ""
     var isLogin = ""
-
     val bundle = Bundle()
-    var total = 60000L;
-    var remainTotal = 0L;
+    var total = 60000L
+    var remainTotal = 0L
     lateinit var  prefernce:SharedPreferences
     lateinit var ed:SharedPreferences.Editor
     var binding:OtpVerificationFragmentBinding?=null
@@ -90,12 +84,10 @@ class OtpVerificationFragment : BaseFragment<OtpVerificationFragmentBinding>(),
             name=bundle.getString("name")!!
             type=bundle.getString("type1")!!
             isLogin=bundle.getString("isLogin")!!
-            binding.otpPhoneNumberTextView.text =
-                resources.getString(R.string.otp_sent_to) + " " + countryCode + " " + phoneNumber
+            binding.otpPhoneNumberTextView.text = resources.getString(R.string.otp_sent_to) + " " + countryCode + " " + phoneNumber
         }
         controller = RingcaptchaAPIController(AppUtil.ringCaptchaAppKey)
         context!!.startService(Intent(context,BradcastService::class.java))
-
     }
 
     override fun onResume() {
@@ -219,7 +211,6 @@ class OtpVerificationFragment : BaseFragment<OtpVerificationFragmentBinding>(),
             showToast(R.string.error_msg_otp_number_empty)
             return
         }
-
         verifyOtp()
     }
 
@@ -228,7 +219,6 @@ class OtpVerificationFragment : BaseFragment<OtpVerificationFragmentBinding>(),
         ed.commit()
         customProgressDialog?.dialogShow()
         sendOtp(countryCode, phoneNumber, binding)
-
     }
 
     private fun verifyOtp() {
@@ -295,8 +285,8 @@ class OtpVerificationFragment : BaseFragment<OtpVerificationFragmentBinding>(),
 
             ApiClientGenerator
                 .getClient()!!
-                .sendOTP(
-                    phone, type
+                .resendOTP(
+                    phone, type,"Yes",code
                 )
                 .enqueue(object : Callback<ResponseBody?> {
                     override fun onResponse(
@@ -351,7 +341,6 @@ class OtpVerificationFragment : BaseFragment<OtpVerificationFragmentBinding>(),
 
     fun verifyOtp(code: String, phone: String) {
         try {
-
             ApiClientGenerator
                 .getClient()!!
                 .verifyOTP(
@@ -373,7 +362,6 @@ class OtpVerificationFragment : BaseFragment<OtpVerificationFragmentBinding>(),
                         if (response.getString("status") == "1") {
                             bundle.putString(Constants.email, email)
                             bundle.putString("name", name)
-
                             bundle.putString(Constants.socialId, socialId)
                             bundle.putString(Constants.type, socialType)
                             bundle.putString(Constants.countryCode, countryCode)
